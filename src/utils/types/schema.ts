@@ -10,6 +10,14 @@ export interface Scalars {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: any;
+}
+
+export interface ICreateTodoInput {
+  completed: Scalars['Boolean'];
+  task: Scalars['String'];
+  userId: Scalars['ID'];
 }
 
 export interface ICreateUserInput {
@@ -20,14 +28,37 @@ export interface ICreateUserInput {
   userName: Scalars['String'];
 }
 
+export interface IDeleteTodoInput {
+  id: Scalars['ID'];
+  userId: Scalars['ID'];
+}
+
 export interface IMutation {
   __typename?: 'Mutation';
+  createTodo: IUser;
   createUser: IUser;
+  deleteTodo: IUser;
+  updateTodo: IUser;
+}
+
+
+export interface IMutationCreateTodoArgs {
+  input: ICreateTodoInput;
 }
 
 
 export interface IMutationCreateUserArgs {
   input: ICreateUserInput;
+}
+
+
+export interface IMutationDeleteTodoArgs {
+  input: IDeleteTodoInput;
+}
+
+
+export interface IMutationUpdateTodoArgs {
+  input: IUpdateTodoInput;
 }
 
 export interface IQuery {
@@ -36,11 +67,28 @@ export interface IQuery {
   getUsers: Array<IUser>;
 }
 
+export interface ITodo {
+  __typename?: 'Todo';
+  completed: Scalars['Boolean'];
+  createdAt: Scalars['DateTime'];
+  id: Scalars['ID'];
+  task: Scalars['String'];
+  updatedAt: Scalars['DateTime'];
+}
+
+export interface IUpdateTodoInput {
+  completed: Scalars['Boolean'];
+  id: Scalars['ID'];
+  task: Scalars['String'];
+  userId: Scalars['ID'];
+}
+
 export interface IUser {
   __typename?: 'User';
   _id: Scalars['ID'];
   email: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
+  todos?: Maybe<Array<ITodo>>;
   userName: Scalars['String'];
 }

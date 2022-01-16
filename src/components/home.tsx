@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
-import { AuthContext } from 'src/contexts/auth';
-import { ThemeContext } from 'src/contexts/theme';
+import React, {useContext} from 'react';
+import {View, Text, StyleSheet, Button} from 'react-native';
+import {AuthContext} from 'src/contexts/auth';
+import {ThemeContext} from 'src/contexts/theme';
 
 const HomeScreenComponent = () => {
-  const { signOut, user } = useContext(AuthContext);
-  const { colors } = useContext(ThemeContext);
+  const {signOut, user} = useContext(AuthContext);
+  const {colors} = useContext(ThemeContext);
 
   const styles = StyleSheet.create({
     container: {
@@ -50,7 +50,9 @@ const HomeScreenComponent = () => {
           </View>
           <View style={styles.secondContainer}>
             <Text style={styles.text}>Name : </Text>
-            <Text style={styles.text}>{user?.firstName + ' ' + user?.lastName}</Text>
+            <Text style={styles.text}>
+              {user?.firstName + ' ' + user?.lastName}
+            </Text>
           </View>
           <View style={styles.secondContainer}>
             <Text style={styles.text}>Email : </Text>
