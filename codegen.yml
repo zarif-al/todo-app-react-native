@@ -1,0 +1,16 @@
+overwrite: true
+schema: 'http://localhost:4000/graphql'
+documents: './src/api/**/*.graphql'
+generates:
+  ./src/utils/types/schema.ts:
+    plugins:
+      - 'typescript'
+    config:
+      typesPrefix: I
+      skipTypeNameForRoot: true
+      enumPrefix: false
+      declarationKind: 'interface'
+
+  ./graphql.schema.json:
+    plugins:
+      - 'introspection'
