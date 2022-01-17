@@ -158,7 +158,7 @@ export default function AuthContextProvider({
     if (!initializing && !currentUserLoading) {
       if (!firebaseUser) {
         if (routeName !== 'Register' && routeName !== 'Login') {
-          navigation.navigate('Splash');
+          navigation.navigate('Login');
         }
       } else {
         if (currentUserError) {

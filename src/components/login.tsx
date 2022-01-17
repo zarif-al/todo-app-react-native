@@ -1,27 +1,33 @@
-import React, { useState, useContext } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { AuthContext } from 'src/contexts/auth';
-import { Header, ButtonStyled, Subheading, TextInputStyled } from 'src/components/_root';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from 'src/App';
-import { useNavigation } from '@react-navigation/native';
-import { ThemeContext } from 'src/contexts/theme';
+import React, {useState, useContext} from 'react';
+import {View, StyleSheet, Text} from 'react-native';
+import {AuthContext} from 'src/contexts/auth';
+import {
+  Header,
+  ButtonStyled,
+  Subheading,
+  TextInputStyled,
+} from 'src/components/_root';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from 'src/App';
+import {useNavigation} from '@react-navigation/native';
+import {ThemeContext} from 'src/contexts/theme';
+import Circles from 'src/components/_root/circles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 const Login = () => {
-  const { colors } = useContext(ThemeContext);
+  const {colors} = useContext(ThemeContext);
   const navigation = useNavigation<Props['navigation']>();
   const [email, setEmail] = useState('zarif_al96@outlook.com');
   const [password, setPassword] = useState('As123456789');
-  const { signIn, error, setError } = useContext(AuthContext);
+  const {signIn, error, setError} = useContext(AuthContext);
 
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'transparent',
+      backgroundColor: colors.background,
     },
     form: {
       justifyContent: 'center',
@@ -42,7 +48,8 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <Header content="PortfolioApp" color={colors.primary} />
+      <Circles />
+      <Header content="Welcome Back" color={colors.text} />
       <Subheading content="Please login to continue" />
       <View style={styles.form}>
         <TextInputStyled
@@ -72,6 +79,7 @@ const Login = () => {
               setError('Please fill all the fields');
             }
           }}
+          fontSize={18}
         />
       </View>
       <ButtonStyled
@@ -81,6 +89,7 @@ const Login = () => {
           navigation.navigate('Register');
         }}
         variant="link"
+        fontSize={15}
       />
     </View>
   );

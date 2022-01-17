@@ -1,15 +1,21 @@
-import React from 'react';
-import { Text, StyleSheet, Pressable } from 'react-native';
-import { useTheme } from '@react-navigation/native';
+import React, {useContext} from 'react';
+import {Text, StyleSheet, Pressable} from 'react-native';
+import {ThemeContext} from 'src/contexts/theme';
 
 interface Props {
   title: string;
   onPress: () => void;
   variant?: 'outlined' | 'contained' | 'link';
+  fontSize?: number;
 }
 
-const ButtonStyled = ({ title, onPress, variant = 'contained' }: Props) => {
-  const { colors } = useTheme();
+const ButtonStyled = ({
+  title,
+  onPress,
+  variant = 'contained',
+  fontSize = 20,
+}: Props) => {
+  const {colors} = useContext(ThemeContext);
 
   const styles = StyleSheet.create({
     button: {
@@ -17,7 +23,8 @@ const ButtonStyled = ({ title, onPress, variant = 'contained' }: Props) => {
       textAlign: 'center',
       padding: 10,
       borderRadius: 10,
-      fontSize: 18,
+      fontSize: fontSize,
+      fontWeight: 'bold',
       backgroundColor: variant === 'contained' ? colors.primary : 'transparent',
       borderColor: variant !== 'outlined' ? 'transparent' : colors.text,
       borderStyle: 'solid',

@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
-import { StyleSheet, TextInput } from 'react-native';
-import { ThemeContext } from 'src/contexts/theme';
+import React, {useState, useContext} from 'react';
+import {StyleSheet, TextInput} from 'react-native';
+import {ThemeContext} from 'src/contexts/theme';
 
 interface Props {
   setValue: (value: string) => void;
@@ -19,7 +19,7 @@ const TextInputStyled = ({
   error = false,
   secureTextEntry = false,
 }: Props) => {
-  const { colors } = useContext(ThemeContext);
+  const {colors} = useContext(ThemeContext);
   const [focused, setFocused] = useState(false);
 
   const styles = StyleSheet.create({
@@ -28,8 +28,8 @@ const TextInputStyled = ({
       borderWidth: 1,
       fontSize: 15,
       borderRadius: 10,
-      color: error ? colors.warning : colors.secondary,
-      borderColor: error ? colors.warning : focused ? colors.primary : '#ccc',
+      color: error ? colors.warning : colors.text,
+      borderColor: error ? colors.warning : focused ? colors.text : '#ccc',
     },
   });
 
