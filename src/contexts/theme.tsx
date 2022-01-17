@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React, {createContext} from 'react';
 
 interface Props {
   children: React.ReactNode;
@@ -20,13 +20,13 @@ export const ThemeContext = createContext({
   colors: {} as Colors,
 });
 
-export default function ThemeProvider({ children }: Props): JSX.Element {
+export default function ThemeProvider({children}: Props): JSX.Element {
   const colors = {
-    text: 'black',
-    primary: '#00b4d8',
+    text: '#2F2E41',
+    primary: '#8FE1D7',
     secondary: '#0077b6',
     tertiary: '#ade8f4',
-    background: '#023e8a',
+    background: '#E6E6E6',
     warning: 'red',
     border: '#03045e',
     notification: '#caf0f8',
