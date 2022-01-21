@@ -27,6 +27,7 @@ export default function ThemeProvider({children}: Props): JSX.Element {
     secondary: '#0077b6',
     tertiary: '#ade8f4',
     background: '#E6E6E6',
+    background2: '#0DAB98',
     warning: 'red',
     border: '#03045e',
     notification: '#caf0f8',

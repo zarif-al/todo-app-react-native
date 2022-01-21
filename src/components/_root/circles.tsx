@@ -15,6 +15,7 @@ const Circles = () => {
       left: 0,
       top: -100,
       opacity: 0.6,
+      elevation: 10,
     },
     circleTwo: {
       backgroundColor: colors.primary,
@@ -25,6 +26,7 @@ const Circles = () => {
       left: -100,
       top: 0,
       opacity: 0.6,
+      elevation: 10,
     },
   });
 
