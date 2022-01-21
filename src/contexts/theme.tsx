@@ -7,6 +7,7 @@ interface Props {
 interface Colors {
   primary: string;
   background: string;
+  background2: string;
   card?: string;
   text: string;
   border: string;

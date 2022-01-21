@@ -6,11 +6,16 @@ import Circles from 'src/components/_root/circles';
 import { Avatar, CheckBox, Icon, Overlay } from 'react-native-elements';
 import { ButtonStyled } from 'src/components/_root';
 import InsertTaskModal from 'src/components/insert-task-modal';
+interface TaskType {
+  name: string;
+  completed: boolean;
+}
+
 const HomeScreenComponent = () => {
   const { user } = useContext(AuthContext);
   const { colors } = useContext(ThemeContext);
-  const [array, setArray] = useState([]);
-  const [visible, setVisible] = useState(false);
+  const [array, setArray] = useState<TaskType[]>([]);
+  const [visible, setVisible] = useState<boolean>(false);
   const [taskInput, setTaskInput] = useState('');
   useEffect(() => {
     const tempArray = [];
@@ -174,7 +179,9 @@ const HomeScreenComponent = () => {
       </View>
       <Overlay
         isVisible={visible}
-        onBackdropPress={setVisible}
+        onBackdropPress={(): void => {
+          setVisible(false);
+        }}
         overlayStyle={styles.modalStyle}>
         <InsertTaskModal
           setVisible={setVisible}

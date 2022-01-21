@@ -3,7 +3,7 @@ import { Text, StyleSheet, Pressable } from 'react-native';
 import { ThemeContext } from 'src/contexts/theme';
 
 interface Props {
-  title: string;
+  title?: string;
   onPress: () => void;
   variant?: 'outlined' | 'contained' | 'link';
   fontSize?: number;
