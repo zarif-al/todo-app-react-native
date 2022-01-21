@@ -36,13 +36,15 @@ const InsertTaskModal = ({
       <ButtonStyled
         title="Add"
         onPress={() => {
-          const tempArray = [...array];
-          tempArray.push({
-            name: input,
-            completed: false,
-          });
-          setArray(tempArray);
-          setVisible(false);
+          if (input.length > 0) {
+            const tempArray = [...array];
+            tempArray.push({
+              name: input,
+              completed: false,
+            });
+            setArray(tempArray);
+            setVisible(false);
+          }
         }}
       />
     </>

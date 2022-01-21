@@ -4,7 +4,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-interface Colors {
+export interface Colors {
   primary: string;
   background: string;
   background2: string;
