@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
 import {AuthContext} from 'src/contexts/auth';
 import {ThemeContext} from 'src/contexts/theme';
+import Circles from 'src/components/_root/circles';
 
 const HomeScreenComponent = () => {
   const {signOut, user} = useContext(AuthContext);
@@ -41,6 +42,7 @@ const HomeScreenComponent = () => {
   });
   return (
     <View style={styles.container}>
+      <Circles />
       <View style={styles.firstContainer}>
         <Text style={styles.heading}>Your Profile</Text>
         <View>
