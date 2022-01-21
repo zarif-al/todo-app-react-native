@@ -15,6 +15,7 @@ interface Props {
   variant?: VariantTypes;
   fontSize?: number;
   icon?: JSX.Element;
+  color?: string;
 }
 
 const ButtonStyled = ({
@@ -23,6 +24,7 @@ const ButtonStyled = ({
   variant = 'contained',
   fontSize = 20,
   icon,
+  color,
 }: Props) => {
   const { colors } = useContext(ThemeContext);
 
@@ -64,7 +66,7 @@ const ButtonStyled = ({
       borderColor: borderColor,
       borderStyle: 'solid',
       borderWidth: 1,
-      color: textColor,
+      color: color ? color : textColor,
     },
   });
 

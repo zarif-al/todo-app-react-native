@@ -84,6 +84,7 @@ const Login = () => {
       </View>
       <ButtonStyled
         title="New Here?"
+        color={colors.text}
         onPress={() => {
           setError(null);
           navigation.navigate('Register');

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet, Pressable } from 'react-native';
+import { View, StyleSheet, Pressable, Text } from 'react-native';
 import { AuthContext } from 'src/contexts/auth';
 import { ThemeContext } from 'src/contexts/theme';
 import Circles from 'src/components/_root/circles';
@@ -21,6 +21,16 @@ const HomeScreenComponent = () => {
       flex: 1,
       justifyContent: 'flex-start',
       backgroundColor: colors.background,
+    },
+    loadingContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    loadingText: {
+      fontSize: 20,
+      color: colors.text,
+      fontWeight: 'bold',
     },
     firstContainer: {
       flex: 0.4,
@@ -60,30 +70,38 @@ const HomeScreenComponent = () => {
   return (
     <View style={styles.container}>
       <Circles />
-      <View style={styles.signOutContainer}>
-        <Pressable onPress={() => signOut()}>
-          <Icon name="sign-out" type="font-awesome" color="white" />
-        </Pressable>
-      </View>
-      <View style={styles.firstContainer}>
-        <Welcome colors={colors} user={user} />
-      </View>
-      <View style={styles.secondContainer}>
-        <TasksContainer
-          array={array}
-          setArray={setArray}
-          setVisible={setVisible}
-          colors={colors}
-        />
-      </View>
-      <Modal
-        visible={visible}
-        setVisible={setVisible}
-        taskInput={taskInput}
-        setTaskInput={setTaskInput}
-        array={array}
-        setArray={setArray}
-      />
+      {!user ? (
+        <View style={styles.loadingContainer}>
+          <Text style={styles.loadingText}>Loading...</Text>
+        </View>
+      ) : (
+        <>
+          <View style={styles.signOutContainer}>
+            <Pressable onPress={() => signOut()}>
+              <Icon name="sign-out" type="font-awesome" color="white" />
+            </Pressable>
+          </View>
+          <View style={styles.firstContainer}>
+            <Welcome colors={colors} user={user} />
+          </View>
+          <View style={styles.secondContainer}>
+            <TasksContainer
+              array={array}
+              setArray={setArray}
+              setVisible={setVisible}
+              colors={colors}
+            />
+          </View>
+          <Modal
+            visible={visible}
+            setVisible={setVisible}
+            taskInput={taskInput}
+            setTaskInput={setTaskInput}
+            array={array}
+            setArray={setArray}
+          />
+        </>
+      )}
     </View>
   );
 };

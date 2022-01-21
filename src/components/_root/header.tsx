@@ -1,13 +1,13 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 
 interface Props {
   content: string;
   color: string;
 }
 
-const Header = ({content, color}: Props) => {
-  return <Text style={{...styles.text, color: color}}>{content}</Text>;
+const Header = ({ content, color }: Props) => {
+  return <Text style={{ ...styles.text, color: color }}>{content}</Text>;
 };
 
 const styles = StyleSheet.create({
@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontSize: 25,
     fontWeight: 'bold',
+    zIndex: 10,
   },
 });
 

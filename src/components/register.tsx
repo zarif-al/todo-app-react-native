@@ -98,6 +98,7 @@ const Register = () => {
         <ButtonStyled
           title="Already Have an Account?"
           variant="link"
+          color={colors.text}
           onPress={() => {
             setError(null);
             navigation.navigate('Login');
