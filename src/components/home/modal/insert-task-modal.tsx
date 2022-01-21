@@ -26,6 +26,7 @@ const InsertTaskModal = ({
     buttonContainer: {
       flexDirection: 'row',
       justifyContent: 'flex-end',
+      marginTop: 10,
     },
   });
   return (
@@ -40,6 +41,7 @@ const InsertTaskModal = ({
       <View style={styles.buttonContainer}>
         <ButtonStyled
           title="Add"
+          fontSize={18}
           onPress={() => {
             if (input.length > 0) {
               const tempArray = [...array];
@@ -55,6 +57,7 @@ const InsertTaskModal = ({
         <ButtonStyled
           variant="danger-outlined"
           title="Cancel"
+          fontSize={18}
           onPress={() => {
             setInput('');
             setVisible(false);
