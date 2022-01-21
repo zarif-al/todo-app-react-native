@@ -26,28 +26,30 @@ const ButtonStyled = ({
 }: Props) => {
   const { colors } = useContext(ThemeContext);
 
-  let backgroundColor = colors.primary;
-  let borderColor = 'transparent';
-  let textColor = colors.primary;
+  let backgroundColor = '';
+  let borderColor = '';
+  let textColor = '';
 
-  if (
-    variant === 'outlined' ||
-    variant === 'link' ||
-    variant === 'danger-outlined'
-  ) {
+  if (variant === 'outlined') {
     backgroundColor = 'transparent';
-    if (variant === 'danger-outlined') {
-      borderColor = colors.danger;
-      textColor = colors.danger;
-    } else {
-      borderColor = colors.primary;
-    }
+    borderColor = colors.primary;
+    textColor = colors.primary;
   } else if (variant === 'contained') {
     backgroundColor = colors.primary;
+    borderColor = 'transparent';
     textColor = 'white';
+  } else if (variant === 'link') {
+    backgroundColor = 'transparent';
+    borderColor = 'transparent';
+    textColor = colors.primary;
   } else if (variant === 'danger') {
     backgroundColor = colors.danger;
+    borderColor = 'transparent';
     textColor = 'white';
+  } else if (variant === 'danger-outlined') {
+    borderColor = colors.danger;
+    backgroundColor = 'transparent';
+    textColor = colors.danger;
   }
 
   const styles = StyleSheet.create({

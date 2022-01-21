@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Pressable } from 'react-native';
 import { AuthContext } from 'src/contexts/auth';
 import { ThemeContext } from 'src/contexts/theme';
 import Circles from 'src/components/_root/circles';
@@ -7,9 +7,10 @@ import { TaskType } from 'src/components/home/utils/types';
 import Welcome from 'src/components/home/welcome';
 import TasksContainer from 'src/components/home/tasks-container';
 import Modal from 'src/components/home/modal';
+import { Icon } from 'react-native-elements';
 
 const HomeScreenComponent = () => {
-  const { user } = useContext(AuthContext);
+  const { signOut, user } = useContext(AuthContext);
   const { colors } = useContext(ThemeContext);
   const [array, setArray] = useState<TaskType[]>([]);
   const [visible, setVisible] = useState<boolean>(false);
@@ -34,6 +35,13 @@ const HomeScreenComponent = () => {
       flex: 0.6,
       padding: 24,
     },
+    signOutContainer: {
+      position: 'absolute',
+      right: 0,
+      top: 0,
+      zIndex: 5,
+      padding: 10,
+    },
   });
 
   useEffect(() => {
@@ -52,6 +60,11 @@ const HomeScreenComponent = () => {
   return (
     <View style={styles.container}>
       <Circles />
+      <View style={styles.signOutContainer}>
+        <Pressable onPress={() => signOut()}>
+          <Icon name="sign-out" type="font-awesome" color="white" />
+        </Pressable>
+      </View>
       <View style={styles.firstContainer}>
         <Welcome colors={colors} user={user} />
       </View>
