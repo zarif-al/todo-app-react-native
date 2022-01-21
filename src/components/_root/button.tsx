@@ -1,12 +1,13 @@
-import React, {useContext} from 'react';
-import {Text, StyleSheet, Pressable} from 'react-native';
-import {ThemeContext} from 'src/contexts/theme';
+import React, { useContext } from 'react';
+import { Text, StyleSheet, Pressable } from 'react-native';
+import { ThemeContext } from 'src/contexts/theme';
 
 interface Props {
   title: string;
   onPress: () => void;
   variant?: 'outlined' | 'contained' | 'link';
   fontSize?: number;
+  icon?: JSX.Element;
 }
 
 const ButtonStyled = ({
@@ -14,8 +15,9 @@ const ButtonStyled = ({
   onPress,
   variant = 'contained',
   fontSize = 20,
+  icon,
 }: Props) => {
-  const {colors} = useContext(ThemeContext);
+  const { colors } = useContext(ThemeContext);
 
   const styles = StyleSheet.create({
     button: {
@@ -35,7 +37,7 @@ const ButtonStyled = ({
 
   return (
     <Pressable onPress={() => onPress()}>
-      <Text style={styles.button}>{title}</Text>
+      {icon ? icon : <Text style={styles.button}>{title}</Text>}
     </Pressable>
   );
 };

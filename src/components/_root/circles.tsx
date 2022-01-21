@@ -1,9 +1,9 @@
-import React, {useContext} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {ThemeContext} from 'src/contexts/theme';
+import React, { useContext } from 'react';
+import { View, StyleSheet } from 'react-native';
+import { ThemeContext } from 'src/contexts/theme';
 
 const Circles = () => {
-  const {colors} = useContext(ThemeContext);
+  const { colors } = useContext(ThemeContext);
 
   const styles = StyleSheet.create({
     circleOne: {
@@ -15,7 +15,7 @@ const Circles = () => {
       left: 0,
       top: -100,
       opacity: 0.6,
-      elevation: 10,
+      zIndex: 5,
     },
     circleTwo: {
       backgroundColor: colors.primary,
@@ -26,7 +26,7 @@ const Circles = () => {
       left: -100,
       top: 0,
       opacity: 0.6,
-      elevation: 10,
+      zIndex: 5,
     },
   });
 
