@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import {View, StyleSheet, Text, ScrollView} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import {AuthContext} from 'src/contexts/auth';
 import {ThemeContext} from 'src/contexts/theme';
 import {
@@ -51,7 +51,7 @@ const CompleteRegistration = () => {
   });
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <Circles />
       <Header content="Almost There!" color={colors.primary} />
       <Subheading content="What should we call you?" />
@@ -94,7 +94,7 @@ const CompleteRegistration = () => {
       <View>
         <Text>{apiLoading ? 'Loading...' : null}</Text>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
