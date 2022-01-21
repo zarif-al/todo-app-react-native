@@ -1,32 +1,30 @@
 import React, {useContext} from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
-import {AuthContext} from 'src/contexts/auth';
+import {View, Text, StyleSheet /* Button */} from 'react-native';
+/* import {AuthContext} from 'src/contexts/auth'; */
 import {ThemeContext} from 'src/contexts/theme';
 import Circles from 'src/components/_root/circles';
 
 const HomeScreenComponent = () => {
-  const {signOut, user} = useContext(AuthContext);
+  /*   const {signOut, user} = useContext(AuthContext); */
   const {colors} = useContext(ThemeContext);
 
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'flex-start',
-      padding: 20,
       backgroundColor: colors.background,
     },
     firstContainer: {
-      padding: 15,
-      borderWidth: 3,
-      margin: 5,
-      marginBottom: 10,
-      color: 'white',
-      borderRadius: 10,
-      borderColor: 'white',
+      flex: 0.5,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: colors.background2,
     },
     secondContainer: {
       marginTop: 6,
       flexDirection: 'row',
+      backgroundColor: 'red',
+      flex: 0.5,
     },
     text: {
       fontSize: 18,
@@ -45,24 +43,11 @@ const HomeScreenComponent = () => {
       <Circles />
       <View style={styles.firstContainer}>
         <Text style={styles.heading}>Your Profile</Text>
-        <View>
-          <View style={styles.secondContainer}>
-            <Text style={styles.text}>Username : </Text>
-            <Text style={styles.text}>{user?.userName}</Text>
-          </View>
-          <View style={styles.secondContainer}>
-            <Text style={styles.text}>Name : </Text>
-            <Text style={styles.text}>
-              {user?.firstName + ' ' + user?.lastName}
-            </Text>
-          </View>
-          <View style={styles.secondContainer}>
-            <Text style={styles.text}>Email : </Text>
-            <Text style={styles.text}>{user?.email}</Text>
-          </View>
-        </View>
       </View>
-      <Button title="Sign Out !" onPress={() => signOut()} />
+      <View style={styles.secondContainer}>
+        <Text style={styles.heading}>Your Profile</Text>
+      </View>
+      {/*  <Button title="Sign Out !" onPress={() => signOut()} /> */}
     </View>
   );
 };
