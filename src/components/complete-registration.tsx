@@ -23,6 +23,7 @@ const CompleteRegistration = () => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: colors.background,
     },
     text: {
       textAlign: 'center',
