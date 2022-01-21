@@ -2,10 +2,17 @@ import React, { useContext } from 'react';
 import { Text, StyleSheet, Pressable } from 'react-native';
 import { ThemeContext } from 'src/contexts/theme';
 
+type VariantTypes =
+  | 'outlined'
+  | 'contained'
+  | 'link'
+  | 'danger'
+  | 'danger-outlined';
+
 interface Props {
   title?: string;
   onPress: () => void;
-  variant?: 'outlined' | 'contained' | 'link';
+  variant?: VariantTypes;
   fontSize?: number;
   icon?: JSX.Element;
 }
@@ -19,19 +26,43 @@ const ButtonStyled = ({
 }: Props) => {
   const { colors } = useContext(ThemeContext);
 
+  let backgroundColor = colors.primary;
+  let borderColor = 'transparent';
+  let textColor = colors.primary;
+
+  if (
+    variant === 'outlined' ||
+    variant === 'link' ||
+    variant === 'danger-outlined'
+  ) {
+    backgroundColor = 'transparent';
+    if (variant === 'danger-outlined') {
+      borderColor = colors.danger;
+      textColor = colors.danger;
+    } else {
+      borderColor = colors.primary;
+    }
+  } else if (variant === 'contained') {
+    backgroundColor = colors.primary;
+    textColor = 'white';
+  } else if (variant === 'danger') {
+    backgroundColor = colors.danger;
+    textColor = 'white';
+  }
+
   const styles = StyleSheet.create({
     button: {
-      margin: 10,
+      margin: 5,
       textAlign: 'center',
       padding: 10,
       borderRadius: 10,
       fontSize: fontSize,
       fontWeight: 'bold',
-      backgroundColor: variant === 'contained' ? colors.primary : 'transparent',
-      borderColor: variant !== 'outlined' ? 'transparent' : colors.text,
+      backgroundColor: backgroundColor,
+      borderColor: borderColor,
       borderStyle: 'solid',
       borderWidth: 1,
-      color: variant === 'contained' ? 'white' : colors.text,
+      color: textColor,
     },
   });
 

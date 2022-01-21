@@ -14,7 +14,7 @@ export interface Colors {
   notification: string;
   secondary: string;
   tertiary: string;
-  warning: string;
+  danger: string;
 }
 
 export const ThemeContext = createContext({
@@ -29,7 +29,7 @@ export default function ThemeProvider({ children }: Props): JSX.Element {
     tertiary: '#ade8f4',
     background: '#E6E6E6',
     background2: '#0DAB98',
-    warning: 'red',
+    danger: '#dc3545',
     border: '#03045e',
     notification: '#caf0f8',
   };

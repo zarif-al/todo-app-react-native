@@ -1,7 +1,7 @@
-import React, {useState, useContext} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
-import {AuthContext} from 'src/contexts/auth';
-import {ThemeContext} from 'src/contexts/theme';
+import React, { useState, useContext } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { AuthContext } from 'src/contexts/auth';
+import { ThemeContext } from 'src/contexts/theme';
 import {
   Header,
   ButtonStyled,
@@ -14,9 +14,9 @@ const CompleteRegistration = () => {
   const [firstName, setFirstName] = useState('Abdullah');
   const [lastName, setLastName] = useState('Al Zarif');
   const [userName, setUserName] = useState('zarif_al96');
-  const {onCreateUser, apiError, apiLoading, error, setError} =
+  const { onCreateUser, apiError, apiLoading, error, setError } =
     useContext(AuthContext);
-  const {colors} = useContext(ThemeContext);
+  const { colors } = useContext(ThemeContext);
 
   const styles = StyleSheet.create({
     container: {
@@ -47,7 +47,7 @@ const CompleteRegistration = () => {
       textAlign: 'center',
       fontWeight: 'bold',
       fontSize: 15,
-      color: colors.warning,
+      color: colors.danger,
     },
   });
 
@@ -85,7 +85,7 @@ const CompleteRegistration = () => {
           title="Complete Registration!"
           onPress={() => {
             if (firstName && lastName && userName) {
-              onCreateUser({firstName, lastName, userName});
+              onCreateUser({ firstName, lastName, userName });
             } else {
               setError('Please fill all the fields');
             }

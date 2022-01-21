@@ -1,26 +1,26 @@
-import React, {useState, useContext} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
-import {AuthContext} from 'src/contexts/auth';
+import React, { useState, useContext } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { AuthContext } from 'src/contexts/auth';
 import {
   Header,
   ButtonStyled,
   Subheading,
   TextInputStyled,
 } from 'src/components/_root';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from 'src/App';
-import {useNavigation} from '@react-navigation/native';
-import {ThemeContext} from 'src/contexts/theme';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from 'src/App';
+import { useNavigation } from '@react-navigation/native';
+import { ThemeContext } from 'src/contexts/theme';
 import Circles from 'src/components/_root/circles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 const Login = () => {
-  const {colors} = useContext(ThemeContext);
+  const { colors } = useContext(ThemeContext);
   const navigation = useNavigation<Props['navigation']>();
   const [email, setEmail] = useState('zarif_al96@outlook.com');
   const [password, setPassword] = useState('As123456789');
-  const {signIn, error, setError} = useContext(AuthContext);
+  const { signIn, error, setError } = useContext(AuthContext);
 
   const styles = StyleSheet.create({
     container: {
@@ -42,7 +42,7 @@ const Login = () => {
       textAlign: 'center',
       fontWeight: 'bold',
       fontSize: 15,
-      color: colors.warning,
+      color: colors.danger,
     },
   });
 

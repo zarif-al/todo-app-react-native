@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, View } from 'react-native';
 import { ButtonStyled, TextInputStyled } from 'src/components/_root';
 
 interface Props {
@@ -23,6 +23,10 @@ const InsertTaskModal = ({
       marginBottom: 5,
       color: 'black',
     },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+    },
   });
   return (
     <>
@@ -33,20 +37,30 @@ const InsertTaskModal = ({
         placeholder="New Task"
         /*  error={error ? true : false} */
       />
-      <ButtonStyled
-        title="Add"
-        onPress={() => {
-          if (input.length > 0) {
-            const tempArray = [...array];
-            tempArray.push({
-              name: input,
-              completed: false,
-            });
-            setArray(tempArray);
+      <View style={styles.buttonContainer}>
+        <ButtonStyled
+          title="Add"
+          onPress={() => {
+            if (input.length > 0) {
+              const tempArray = [...array];
+              tempArray.push({
+                name: input,
+                completed: false,
+              });
+              setArray(tempArray);
+              setVisible(false);
+            }
+          }}
+        />
+        <ButtonStyled
+          variant="danger-outlined"
+          title="Cancel"
+          onPress={() => {
+            setInput('');
             setVisible(false);
-          }
-        }}
-      />
+          }}
+        />
+      </View>
     </>
   );
 };
