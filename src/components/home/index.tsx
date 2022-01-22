@@ -6,14 +6,15 @@ import Circles from 'src/components/_root/circles';
 import { TaskType } from 'src/components/home/utils/types';
 import Welcome from 'src/components/home/welcome';
 import TasksContainer from 'src/components/home/tasks-container';
-import Modal from 'src/components/home/modal';
+import AddModal from 'src/components/home/add-modal';
 import { Icon } from 'react-native-elements';
 
 const HomeScreenComponent = () => {
   const { signOut, user } = useContext(AuthContext);
   const { colors } = useContext(ThemeContext);
   const [array, setArray] = useState<TaskType[]>([]);
-  const [visible, setVisible] = useState<boolean>(false);
+  const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
+  const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [taskInput, setTaskInput] = useState('');
 
   const styles = StyleSheet.create({
@@ -88,13 +89,13 @@ const HomeScreenComponent = () => {
             <TasksContainer
               array={array}
               setArray={setArray}
-              setVisible={setVisible}
+              setAddModalOpen={setAddModalOpen}
               colors={colors}
             />
           </View>
-          <Modal
-            visible={visible}
-            setVisible={setVisible}
+          <AddModal
+            addModalOpen={addModalOpen}
+            setAddModalOpen={setAddModalOpen}
             taskInput={taskInput}
             setTaskInput={setTaskInput}
             array={array}

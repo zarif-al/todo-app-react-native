@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Overlay } from 'react-native-elements';
 import { ModalComponentTypes } from 'src/components/home/utils/types';
-import InsertTaskModal from 'src/components/home/modal/insert-task-modal';
+import InsertTaskModal from 'src/components/home/add-modal/insert-task-modal';
 
-const Modal = ({
-  visible,
-  setVisible,
+const AddModal = ({
+  addModalOpen,
+  setAddModalOpen,
   taskInput,
   setTaskInput,
   array,
@@ -21,13 +21,13 @@ const Modal = ({
   });
   return (
     <Overlay
-      isVisible={visible}
+      isVisible={addModalOpen}
       onBackdropPress={(): void => {
-        setVisible(false);
+        setAddModalOpen(false);
       }}
       overlayStyle={styles.modalStyle}>
       <InsertTaskModal
-        setVisible={setVisible}
+        setAddModalOpen={setAddModalOpen}
         input={taskInput}
         setInput={setTaskInput}
         array={array}
@@ -37,4 +37,4 @@ const Modal = ({
   );
 };
 
-export default Modal;
+export default AddModal;

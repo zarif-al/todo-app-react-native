@@ -6,7 +6,7 @@ import { TaskListComponentTypes } from 'src/components/home/utils/types';
 
 const TasksContainer = ({
   colors,
-  setVisible,
+  setAddModalOpen,
   array,
   setArray,
 }: TaskListComponentTypes) => {
@@ -74,7 +74,7 @@ const TasksContainer = ({
               />
             }
             onPress={() => {
-              setVisible(true);
+              setAddModalOpen(true);
             }}
           />
         </View>

@@ -11,7 +11,7 @@ interface Props {
 }
 
 const InsertTaskModal = ({
-  setVisible,
+  setAddModalOpen,
   input,
   setInput,
   array,
@@ -50,7 +50,7 @@ const InsertTaskModal = ({
                 completed: false,
               });
               setArray(tempArray);
-              setVisible(false);
+              setAddModalOpen(false);
             }
           }}
         />
@@ -60,7 +60,7 @@ const InsertTaskModal = ({
           fontSize={18}
           onPress={() => {
             setInput('');
-            setVisible(false);
+            setAddModalOpen(false);
           }}
         />
       </View>
