@@ -7,6 +7,7 @@ import { TaskType } from 'src/components/home/utils/types';
 import Welcome from 'src/components/home/welcome';
 import TasksContainer from 'src/components/home/tasks-container';
 import AddModal from 'src/components/home/add-modal';
+import EditModal from 'src/components/home/edit-modal';
 import { Icon } from 'react-native-elements';
 
 const HomeScreenComponent = () => {
@@ -94,8 +95,16 @@ const HomeScreenComponent = () => {
             />
           </View>
           <AddModal
-            addModalOpen={addModalOpen}
-            setAddModalOpen={setAddModalOpen}
+            visible={addModalOpen}
+            setVisible={setAddModalOpen}
+            taskInput={taskInput}
+            setTaskInput={setTaskInput}
+            array={array}
+            setArray={setArray}
+          />
+          <EditModal
+            visible={editModalOpen}
+            setVisible={setEditModalOpen}
             taskInput={taskInput}
             setTaskInput={setTaskInput}
             array={array}
