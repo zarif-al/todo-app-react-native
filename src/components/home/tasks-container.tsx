@@ -1,5 +1,12 @@
-import React from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import React, { useRef } from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Animated,
+  Easing,
+} from 'react-native';
 import { CheckBox, Icon } from 'react-native-elements';
 import { ButtonStyled } from 'src/components/_root';
 import { TaskListComponentTypes } from 'src/components/home/utils/types';
@@ -10,6 +17,7 @@ const TasksContainer = ({
   array,
   setArray,
 }: TaskListComponentTypes) => {
+  const ANIM_TIMING = 300;
   const styles = StyleSheet.create({
     headingTwo: {
       fontSize: 23,
@@ -57,7 +65,66 @@ const TasksContainer = ({
       padding: 0,
       alignSelf: 'flex-start',
     },
+    checkBoxContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      borderWidth: 2,
+      borderColor: 'red',
+    },
+    iconContainer: {
+      flexDirection: 'row',
+    },
+    iconStyle: {
+      marginRight: 10,
+    },
   });
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const posAnim = useRef(new Animated.Value(-100)).current;
+  function AnimatedView(props) {
+    return (
+      <Animated.View // Special animatable View
+        style={{
+          ...props.style,
+          right: posAnim, // Bind opacity to animated value
+          opacity: fadeAnim,
+        }}>
+        {props.children}
+      </Animated.View>
+    );
+  }
+
+  const fadeIn = () => {
+    Animated.parallel([
+      Animated.timing(posAnim, {
+        toValue: 10,
+        duration: ANIM_TIMING,
+        useNativeDriver: false,
+        easing: Easing.ease,
+      }),
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: ANIM_TIMING,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  const fadeOut = () => {
+    Animated.parallel([
+      Animated.timing(posAnim, {
+        toValue: -100,
+        duration: ANIM_TIMING,
+        useNativeDriver: false,
+        easing: Easing.ease,
+      }),
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: ANIM_TIMING,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
 
   return (
     <>
@@ -82,19 +149,39 @@ const TasksContainer = ({
           <View style={styles.listContainer}>
             {array.map((item, index) => {
               return (
-                <CheckBox
-                  key={index}
-                  center
-                  title={item.name}
-                  checked={item.completed}
-                  checkedColor={colors.background2}
-                  onPress={() => {
-                    array[index].completed =
-                      array[index].completed === false ? true : false;
-                    setArray([...array]);
-                  }}
-                  containerStyle={styles.listItem}
-                />
+                <View style={styles.checkBoxContainer} key={index}>
+                  <CheckBox
+                    center
+                    title={item.name}
+                    checked={item.completed}
+                    checkedColor={colors.background2}
+                    onPress={() => {
+                      array[index].completed =
+                        array[index].completed === false ? true : false;
+                      setArray([...array]);
+                    }}
+                    onLongPress={() => {
+                      fadeIn();
+                      setTimeout(() => {
+                        fadeOut();
+                      }, 3000);
+                    }}
+                    containerStyle={styles.listItem}
+                  />
+                  <AnimatedView style={styles.iconContainer}>
+                    <Icon
+                      name="edit"
+                      type="font-awesome"
+                      color={colors.text}
+                      containerStyle={styles.iconStyle}
+                    />
+                    <Icon
+                      name="trash"
+                      type="font-awesome"
+                      color={colors.danger}
+                    />
+                  </AnimatedView>
+                </View>
               );
             })}
           </View>
