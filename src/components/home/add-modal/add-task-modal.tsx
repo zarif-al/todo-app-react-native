@@ -10,7 +10,7 @@ interface Props {
   setArray: (array: Array<{ name: string; completed: boolean }>) => void;
 }
 
-const InsertTaskModal = ({
+const AddTaskModal = ({
   setVisible,
   input,
   setInput,
@@ -68,4 +68,4 @@ const InsertTaskModal = ({
   );
 };
 
-export default InsertTaskModal;
+export default AddTaskModal;

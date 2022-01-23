@@ -8,6 +8,7 @@ interface Props {
   setInput: (input: string) => void;
   array: Array<{ name: string; completed: boolean }>;
   setArray: (array: Array<{ name: string; completed: boolean }>) => void;
+  taskIndex: number | null;
 }
 
 const EditTaskModal = ({
@@ -16,7 +17,9 @@ const EditTaskModal = ({
   setInput,
   array,
   setArray,
+  taskIndex,
 }: Props) => {
+  console.log(taskIndex);
   const styles = StyleSheet.create({
     text: {
       fontSize: 18,
@@ -31,7 +34,7 @@ const EditTaskModal = ({
   });
   return (
     <>
-      <Text style={styles.text}>Add Task</Text>
+      <Text style={styles.text}>Edit Task</Text>
       <TextInputStyled
         setValue={setInput}
         value={input}
@@ -40,16 +43,15 @@ const EditTaskModal = ({
       />
       <View style={styles.buttonContainer}>
         <ButtonStyled
-          title="Add"
+          title="Confirm"
           fontSize={18}
           onPress={() => {
             if (input.length > 0) {
+              console.log(taskIndex);
               const tempArray = [...array];
-              tempArray.push({
-                name: input,
-                completed: false,
-              });
-              setArray(tempArray);
+              const task = tempArray[taskIndex];
+              /*  task.name = input;
+              setArray(tempArray); */
               setVisible(false);
             }
           }}

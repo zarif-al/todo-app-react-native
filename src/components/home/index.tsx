@@ -17,7 +17,7 @@ const HomeScreenComponent = () => {
   const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [taskInput, setTaskInput] = useState('');
-
+  const [taskIndex, setTaskIndex] = useState<number | null>(null);
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -91,6 +91,9 @@ const HomeScreenComponent = () => {
               array={array}
               setArray={setArray}
               setAddModalOpen={setAddModalOpen}
+              setEditModalOpen={setEditModalOpen}
+              setTaskIndex={setTaskIndex}
+              setTaskInput={setTaskInput}
               colors={colors}
             />
           </View>
@@ -103,6 +106,7 @@ const HomeScreenComponent = () => {
             setArray={setArray}
           />
           <EditModal
+            taskIndex={taskIndex}
             visible={editModalOpen}
             setVisible={setEditModalOpen}
             taskInput={taskInput}

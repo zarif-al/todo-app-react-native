@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Overlay } from 'react-native-elements';
 import { ModalComponentTypes } from 'src/components/home/utils/types';
-import InsertTaskModal from 'src/components/home/add-modal/insert-task-modal';
+import AddTaskModal from 'src/components/home/add-modal/add-task-modal';
 
 const AddModal = ({
   visible,
@@ -26,7 +26,7 @@ const AddModal = ({
         setVisible(false);
       }}
       overlayStyle={styles.modalStyle}>
-      <InsertTaskModal
+      <AddTaskModal
         setVisible={setVisible}
         input={taskInput}
         setInput={setTaskInput}

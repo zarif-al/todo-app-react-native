@@ -7,6 +7,9 @@ import { TaskListComponentTypes } from 'src/components/home/utils/types';
 const TasksContainer = ({
   colors,
   setAddModalOpen,
+  setEditModalOpen,
+  setTaskInput,
+  setTaskIndex,
   array,
   setArray,
 }: TaskListComponentTypes) => {
@@ -92,6 +95,11 @@ const TasksContainer = ({
                     array[index].completed =
                       array[index].completed === false ? true : false;
                     setArray([...array]);
+                  }}
+                  onLongPress={() => {
+                    setTaskInput(item.name);
+                    setTaskIndex(index);
+                    setEditModalOpen(true);
                   }}
                   containerStyle={styles.listItem}
                 />
