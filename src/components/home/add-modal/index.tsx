@@ -9,8 +9,8 @@ const AddModal = ({
   setVisible,
   taskInput,
   setTaskInput,
-  array,
-  setArray,
+  onCreateTodo,
+  userId,
 }: AddModalComponentTypes) => {
   const styles = StyleSheet.create({
     modalStyle: {
@@ -30,8 +30,8 @@ const AddModal = ({
         setVisible={setVisible}
         input={taskInput}
         setInput={setTaskInput}
-        array={array}
-        setArray={setArray}
+        onCreateTodo={onCreateTodo}
+        userId={userId}
       />
     </Overlay>
   );

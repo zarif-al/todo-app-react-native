@@ -165,7 +165,7 @@ const TasksContainer = ({
                 <View style={styles.checkBoxContainer} key={index}>
                   <CheckBox
                     center
-                    title={item.name}
+                    title={item.task}
                     checked={item.completed}
                     checkedColor={colors.background2}
                     onPress={() => {

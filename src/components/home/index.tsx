@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { View, StyleSheet, Pressable, Text } from 'react-native';
 import { AuthContext } from 'src/contexts/auth';
+import { UserContext } from 'src/contexts/user';
 import { ThemeContext } from 'src/contexts/theme';
 import Circles from 'src/components/_root/circles';
 import { TaskType } from 'src/components/home/utils/types';
@@ -13,6 +14,7 @@ import { Icon } from 'react-native-elements';
 
 const HomeScreenComponent = () => {
   const { signOut, user } = useContext(AuthContext);
+  const { onCreateTodo } = useContext(UserContext);
   const { colors } = useContext(ThemeContext);
   const [array, setArray] = useState<TaskType[]>([]);
   const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
@@ -90,8 +92,7 @@ const HomeScreenComponent = () => {
           </View>
           <View style={styles.secondContainer}>
             <TasksContainer
-              array={array}
-              setArray={setArray}
+              array={user.todos}
               setAddModalOpen={setAddModalOpen}
               setEditModalOpen={setEditModalOpen}
               setDeleteModalOpen={setDeleteModalOpen}
@@ -105,8 +106,8 @@ const HomeScreenComponent = () => {
             setVisible={setAddModalOpen}
             taskInput={taskInput}
             setTaskInput={setTaskInput}
-            array={array}
-            setArray={setArray}
+            onCreateTodo={onCreateTodo}
+            userId={user._id}
           />
           <EditModal
             taskIndex={taskIndex}
