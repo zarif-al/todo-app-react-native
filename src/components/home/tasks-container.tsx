@@ -20,7 +20,7 @@ const TasksContainer = ({
   setEditModalOpen,
   setDeleteModalOpen,
   setTaskInput,
-  setTaskIndex,
+  setTaskId,
   array,
   onUpdateTodo,
   userId,
@@ -194,8 +194,8 @@ const TasksContainer = ({
                         />
                       }
                       onPress={() => {
-                        setTaskInput(item.name);
-                        setTaskIndex(index);
+                        setTaskInput(item.task);
+                        setTaskId(item.id);
                         setEditModalOpen(true);
                       }}
                       marginRight={10}
@@ -209,7 +209,7 @@ const TasksContainer = ({
                         />
                       }
                       onPress={() => {
-                        setTaskIndex(index);
+                        setTaskId(item.id);
                         setDeleteModalOpen(true);
                       }}
                     />

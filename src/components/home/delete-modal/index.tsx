@@ -5,11 +5,11 @@ import { DeleteModalComponentTypes } from 'src/components/home/utils/types';
 import { ButtonStyled } from 'src/components/_root';
 
 const DeleteModal = ({
-  taskIndex,
+  userId,
+  taskId,
   visible,
   setVisible,
-  array,
-  setArray,
+  onDeleteTodo,
 }: DeleteModalComponentTypes) => {
   const styles = StyleSheet.create({
     modalStyle: {
@@ -46,8 +46,7 @@ const DeleteModal = ({
           title="Confirm"
           fontSize={13}
           onPress={() => {
-            const tempArray = array.filter((_, index) => index !== taskIndex);
-            setArray(tempArray);
+            onDeleteTodo({ userId: userId, id: taskId });
             setVisible(false);
           }}
         />

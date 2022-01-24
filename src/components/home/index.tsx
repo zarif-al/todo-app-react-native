@@ -14,14 +14,14 @@ import { Icon } from 'react-native-elements';
 
 const HomeScreenComponent = () => {
   const { signOut, user } = useContext(AuthContext);
-  const { onCreateTodo, onUpdateTodo } = useContext(UserContext);
+  const { onCreateTodo, onUpdateTodo, onDeleteTodo } = useContext(UserContext);
   const { colors } = useContext(ThemeContext);
   const [array, setArray] = useState<TaskType[]>([]);
   const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [taskInput, setTaskInput] = useState('');
-  const [taskIndex, setTaskIndex] = useState<number | null>(null);
+  const [taskId, setTaskId] = useState<string | null>(null);
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -98,7 +98,7 @@ const HomeScreenComponent = () => {
               setAddModalOpen={setAddModalOpen}
               setEditModalOpen={setEditModalOpen}
               setDeleteModalOpen={setDeleteModalOpen}
-              setTaskIndex={setTaskIndex}
+              setTaskId={setTaskId}
               setTaskInput={setTaskInput}
               colors={colors}
             />
@@ -112,20 +112,20 @@ const HomeScreenComponent = () => {
             userId={user._id}
           />
           <EditModal
-            taskIndex={taskIndex}
+            taskId={taskId}
             visible={editModalOpen}
             setVisible={setEditModalOpen}
             taskInput={taskInput}
             setTaskInput={setTaskInput}
-            array={array}
-            setArray={setArray}
+            userId={user._id}
+            onUpdateTodo={onUpdateTodo}
           />
           <DeleteModal
-            taskIndex={taskIndex}
+            userId={user._id}
+            taskId={taskId}
             visible={deleteModalOpen}
             setVisible={setDeleteModalOpen}
-            array={array}
-            setArray={setArray}
+            onDeleteTodo={onDeleteTodo}
           />
         </>
       )}

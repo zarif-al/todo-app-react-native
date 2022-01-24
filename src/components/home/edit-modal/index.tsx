@@ -5,13 +5,13 @@ import { EditModalComponentTypes } from 'src/components/home/utils/types';
 import EditTaskModal from 'src/components/home/edit-modal/edit-task-modal';
 
 const EditModal = ({
-  taskIndex,
+  taskId,
   visible,
   setVisible,
   taskInput,
   setTaskInput,
-  array,
-  setArray,
+  userId,
+  onUpdateTodo,
 }: EditModalComponentTypes) => {
   const styles = StyleSheet.create({
     modalStyle: {
@@ -28,12 +28,12 @@ const EditModal = ({
       }}
       overlayStyle={styles.modalStyle}>
       <EditTaskModal
-        taskIndex={taskIndex}
+        taskId={taskId}
         setVisible={setVisible}
         input={taskInput}
         setInput={setTaskInput}
-        array={array}
-        setArray={setArray}
+        userId={userId}
+        onUpdateTodo={onUpdateTodo}
       />
     </Overlay>
   );
