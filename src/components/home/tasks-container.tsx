@@ -15,6 +15,7 @@ const TasksContainer = ({
   colors,
   setAddModalOpen,
   setEditModalOpen,
+  setDeleteModalOpen,
   setTaskInput,
   setTaskIndex,
   array,
@@ -191,6 +192,10 @@ const TasksContainer = ({
                       name="trash"
                       type="font-awesome"
                       color={colors.danger}
+                      onPress={() => {
+                        setTaskIndex(index);
+                        setDeleteModalOpen(true);
+                      }}
                     />
                   </AnimatedView>
                 </View>

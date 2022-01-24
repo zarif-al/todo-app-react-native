@@ -8,6 +8,7 @@ import Welcome from 'src/components/home/welcome';
 import TasksContainer from 'src/components/home/tasks-container';
 import AddModal from 'src/components/home/add-modal';
 import EditModal from 'src/components/home/edit-modal';
+import DeleteModal from 'src/components/home/delete-modal';
 import { Icon } from 'react-native-elements';
 
 const HomeScreenComponent = () => {
@@ -16,6 +17,7 @@ const HomeScreenComponent = () => {
   const [array, setArray] = useState<TaskType[]>([]);
   const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [taskInput, setTaskInput] = useState('');
   const [taskIndex, setTaskIndex] = useState<number | null>(null);
   const styles = StyleSheet.create({
@@ -92,6 +94,7 @@ const HomeScreenComponent = () => {
               setArray={setArray}
               setAddModalOpen={setAddModalOpen}
               setEditModalOpen={setEditModalOpen}
+              setDeleteModalOpen={setDeleteModalOpen}
               setTaskIndex={setTaskIndex}
               setTaskInput={setTaskInput}
               colors={colors}
@@ -111,6 +114,13 @@ const HomeScreenComponent = () => {
             setVisible={setEditModalOpen}
             taskInput={taskInput}
             setTaskInput={setTaskInput}
+            array={array}
+            setArray={setArray}
+          />
+          <DeleteModal
+            taskIndex={taskIndex}
+            visible={deleteModalOpen}
+            setVisible={setDeleteModalOpen}
             array={array}
             setArray={setArray}
           />
