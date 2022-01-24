@@ -16,6 +16,7 @@ interface Props {
   fontSize?: number;
   icon?: JSX.Element;
   color?: string;
+  marginRight?: number;
 }
 
 const ButtonStyled = ({
@@ -25,6 +26,7 @@ const ButtonStyled = ({
   fontSize = 20,
   icon,
   color,
+  marginRight,
 }: Props) => {
   const { colors } = useContext(ThemeContext);
 
@@ -68,10 +70,13 @@ const ButtonStyled = ({
       borderWidth: 1,
       color: color ? color : textColor,
     },
+    pressableStyle: {
+      marginRight: marginRight ? marginRight : 0,
+    },
   });
 
   return (
-    <Pressable onPress={() => onPress()}>
+    <Pressable onPress={() => onPress()} style={styles.pressableStyle}>
       {icon ? icon : <Text style={styles.button}>{title}</Text>}
     </Pressable>
   );

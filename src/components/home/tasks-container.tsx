@@ -182,21 +182,29 @@ const TasksContainer = ({
                     containerStyle={styles.listItem}
                   />
                   <AnimatedView style={styles.iconContainer} index={index}>
-                    <Icon
-                      name="edit"
-                      type="font-awesome"
-                      color={colors.text}
-                      containerStyle={styles.iconStyle}
+                    <ButtonStyled
+                      icon={
+                        <Icon
+                          name="edit"
+                          type="font-awesome"
+                          color={colors.text}
+                        />
+                      }
                       onPress={() => {
                         setTaskInput(item.name);
                         setTaskIndex(index);
                         setEditModalOpen(true);
                       }}
+                      marginRight={10}
                     />
-                    <Icon
-                      name="trash"
-                      type="font-awesome"
-                      color={colors.danger}
+                    <ButtonStyled
+                      icon={
+                        <Icon
+                          name="trash"
+                          type="font-awesome"
+                          color={colors.danger}
+                        />
+                      }
                       onPress={() => {
                         setTaskIndex(index);
                         setDeleteModalOpen(true);
