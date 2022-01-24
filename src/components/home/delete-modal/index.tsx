@@ -23,9 +23,10 @@ const DeleteModal = ({
       marginTop: 10,
     },
     text: {
-      fontSize: 20,
+      fontSize: 15,
       textAlign: 'center',
       color: 'black',
+      fontWeight: 'bold',
     },
   });
   return (
@@ -43,7 +44,7 @@ const DeleteModal = ({
         <ButtonStyled
           variant="danger-outlined"
           title="Confirm"
-          fontSize={18}
+          fontSize={13}
           onPress={() => {
             const tempArray = array.filter((_, index) => index !== taskIndex);
             setArray(tempArray);
@@ -53,7 +54,7 @@ const DeleteModal = ({
         <ButtonStyled
           variant="outlined"
           title="Cancel"
-          fontSize={18}
+          fontSize={13}
           onPress={() => {
             setVisible(false);
           }}
