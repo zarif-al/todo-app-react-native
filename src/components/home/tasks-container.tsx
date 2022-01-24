@@ -22,7 +22,8 @@ const TasksContainer = ({
   setTaskInput,
   setTaskIndex,
   array,
-  setArray,
+  onUpdateTodo,
+  userId,
 }: TaskListComponentTypes) => {
   const ANIM_TIMING = 300;
   const styles = StyleSheet.create({
@@ -169,9 +170,11 @@ const TasksContainer = ({
                     checked={item.completed}
                     checkedColor={colors.background2}
                     onPress={() => {
-                      array[index].completed =
-                        array[index].completed === false ? true : false;
-                      setArray([...array]);
+                      onUpdateTodo({
+                        userId: userId,
+                        id: item.id,
+                        completed: !item.completed,
+                      });
                     }}
                     onLongPress={() => {
                       fadeIn(index);

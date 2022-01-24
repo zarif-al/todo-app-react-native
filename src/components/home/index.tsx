@@ -14,7 +14,7 @@ import { Icon } from 'react-native-elements';
 
 const HomeScreenComponent = () => {
   const { signOut, user } = useContext(AuthContext);
-  const { onCreateTodo } = useContext(UserContext);
+  const { onCreateTodo, onUpdateTodo } = useContext(UserContext);
   const { colors } = useContext(ThemeContext);
   const [array, setArray] = useState<TaskType[]>([]);
   const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
@@ -93,6 +93,8 @@ const HomeScreenComponent = () => {
           <View style={styles.secondContainer}>
             <TasksContainer
               array={user.todos}
+              userId={user._id}
+              onUpdateTodo={onUpdateTodo}
               setAddModalOpen={setAddModalOpen}
               setEditModalOpen={setEditModalOpen}
               setDeleteModalOpen={setDeleteModalOpen}

@@ -77,9 +77,9 @@ export interface ITodo {
 }
 
 export interface IUpdateTodoInput {
-  completed: Scalars['Boolean'];
+  completed?: InputMaybe<Scalars['Boolean']>;
   id: Scalars['ID'];
-  task: Scalars['String'];
+  task?: InputMaybe<Scalars['String']>;
   userId: Scalars['ID'];
 }
 
