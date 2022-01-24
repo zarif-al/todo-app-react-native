@@ -15,7 +15,17 @@ const DeleteModal = ({
     modalStyle: {
       borderRadius: 10,
       padding: 15,
-      width: '85%',
+      width: '60%',
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginTop: 10,
+    },
+    text: {
+      fontSize: 20,
+      textAlign: 'center',
+      color: 'black',
     },
   });
   return (
@@ -25,7 +35,9 @@ const DeleteModal = ({
         setVisible(false);
       }}
       overlayStyle={styles.modalStyle}>
-      <Text style={styles.text}>Delete Task</Text>
+      <Text style={styles.text}>
+        Are you sure you want to delete this task?
+      </Text>
 
       <View style={styles.buttonContainer}>
         <ButtonStyled
@@ -39,6 +51,7 @@ const DeleteModal = ({
           }}
         />
         <ButtonStyled
+          variant="outlined"
           title="Cancel"
           fontSize={18}
           onPress={() => {
