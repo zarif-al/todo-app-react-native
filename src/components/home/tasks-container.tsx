@@ -84,7 +84,7 @@ const TasksContainer = ({
       marginRight: 10,
     },
   });
-
+  // TODO : Fix types
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const fadeAnim = useRef<any>([]);
   fadeAnim.current = [];
