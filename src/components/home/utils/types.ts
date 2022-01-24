@@ -14,15 +14,40 @@ export interface WelcomeScreenTypes {
 export interface ModalComponentTypes {
   visible: boolean;
   setVisible: (visible: boolean) => void;
-  taskInput: string;
-  setTaskInput: (taskInput: string) => void;
   array: TaskType[];
   setArray: (array: TaskType[]) => void;
+}
+
+export interface AddModalComponentTypes extends ModalComponentTypes {
+  taskInput: string;
+  setTaskInput: (taskInput: string) => void;
+}
+
+export interface EditModalComponentTypes extends ModalComponentTypes {
+  taskInput: string;
+  setTaskInput: (taskInput: string) => void;
+  taskIndex: number | null;
+}
+
+export interface DeleteModalComponentTypes extends ModalComponentTypes {
+  taskIndex: number | null;
 }
 
 export interface TaskListComponentTypes {
   array: TaskType[];
   setArray: (array: TaskType[]) => void;
-  setVisible: (visible: boolean) => void;
   colors: Colors;
+  setTaskIndex: (taskIndex: number) => void;
+  setTaskInput: (taskInput: string) => void;
+  setDeleteModalOpen: (deleteModalOpen: boolean) => void;
+  setEditModalOpen: (editModalOpen: boolean) => void;
+  setAddModalOpen: (addModalOpen: boolean) => void;
+}
+
+export interface AnimatedViewProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  style: any;
+  index: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  children: any;
 }

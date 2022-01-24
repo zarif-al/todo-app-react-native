@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Overlay } from 'react-native-elements';
-import { ModalComponentTypes } from 'src/components/home/utils/types';
+import { AddModalComponentTypes } from 'src/components/home/utils/types';
 import AddTaskModal from 'src/components/home/add-modal/add-task-modal';
 
 const AddModal = ({
@@ -11,7 +11,7 @@ const AddModal = ({
   setTaskInput,
   array,
   setArray,
-}: ModalComponentTypes) => {
+}: AddModalComponentTypes) => {
   const styles = StyleSheet.create({
     modalStyle: {
       borderRadius: 10,

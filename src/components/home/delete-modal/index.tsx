@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Overlay } from 'react-native-elements';
-import { ModalComponentTypes } from 'src/components/home/utils/types';
+import { DeleteModalComponentTypes } from 'src/components/home/utils/types';
 import { ButtonStyled } from 'src/components/_root';
 
 const DeleteModal = ({
@@ -10,7 +10,7 @@ const DeleteModal = ({
   setVisible,
   array,
   setArray,
-}: ModalComponentTypes) => {
+}: DeleteModalComponentTypes) => {
   const styles = StyleSheet.create({
     modalStyle: {
       borderRadius: 10,

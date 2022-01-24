@@ -45,7 +45,7 @@ const EditTaskModal = ({
           title="Confirm"
           fontSize={18}
           onPress={() => {
-            if (input.length > 0) {
+            if (input.length > 0 && taskIndex !== null) {
               const tempArray = [...array];
               const task = tempArray[taskIndex];
               task.name = input;

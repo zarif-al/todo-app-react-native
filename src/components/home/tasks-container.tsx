@@ -9,7 +9,10 @@ import {
 } from 'react-native';
 import { CheckBox, Icon } from 'react-native-elements';
 import { ButtonStyled } from 'src/components/_root';
-import { TaskListComponentTypes } from 'src/components/home/utils/types';
+import {
+  TaskListComponentTypes,
+  AnimatedViewProps,
+} from 'src/components/home/utils/types';
 
 const TasksContainer = ({
   colors,
@@ -82,12 +85,14 @@ const TasksContainer = ({
     },
   });
 
-  const fadeAnim = useRef([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const fadeAnim = useRef<any>([]);
   fadeAnim.current = [];
-  const posAnim = useRef([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const posAnim = useRef<any>([]);
   posAnim.current = [];
 
-  function AnimatedView({ style, index, children }) {
+  function AnimatedView({ style, index, children }: AnimatedViewProps) {
     fadeAnim.current.push(new Animated.Value(0));
     posAnim.current.push(new Animated.Value(-100));
     return (
@@ -102,7 +107,7 @@ const TasksContainer = ({
     );
   }
 
-  const fadeIn = index => {
+  const fadeIn = (index: number) => {
     Animated.parallel([
       Animated.timing(posAnim.current[index], {
         toValue: 10,
@@ -118,7 +123,7 @@ const TasksContainer = ({
     ]).start();
   };
 
-  const fadeOut = index => {
+  const fadeOut = (index: number) => {
     Animated.parallel([
       Animated.timing(posAnim.current[index], {
         toValue: -100,
