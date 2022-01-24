@@ -69,8 +69,6 @@ const TasksContainer = ({
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      borderWidth: 2,
-      borderColor: 'red',
     },
     iconContainer: {
       flexDirection: 'row',
@@ -79,30 +77,36 @@ const TasksContainer = ({
       marginRight: 10,
     },
   });
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-  const posAnim = useRef(new Animated.Value(-100)).current;
-  function AnimatedView(props) {
+
+  const fadeAnim = useRef([]);
+  fadeAnim.current = [];
+  const posAnim = useRef([]);
+  posAnim.current = [];
+
+  function AnimatedView({ style, index, children }) {
+    fadeAnim.current.push(new Animated.Value(0));
+    posAnim.current.push(new Animated.Value(-100));
     return (
       <Animated.View // Special animatable View
         style={{
-          ...props.style,
-          right: posAnim, // Bind opacity to animated value
-          opacity: fadeAnim,
+          ...style,
+          right: posAnim.current[index], // Bind opacity to animated value
+          opacity: fadeAnim.current[index],
         }}>
-        {props.children}
+        {children}
       </Animated.View>
     );
   }
 
-  const fadeIn = () => {
+  const fadeIn = index => {
     Animated.parallel([
-      Animated.timing(posAnim, {
+      Animated.timing(posAnim.current[index], {
         toValue: 10,
         duration: ANIM_TIMING,
         useNativeDriver: false,
         easing: Easing.ease,
       }),
-      Animated.timing(fadeAnim, {
+      Animated.timing(fadeAnim.current[index], {
         toValue: 1,
         duration: ANIM_TIMING,
         useNativeDriver: false,
@@ -110,15 +114,15 @@ const TasksContainer = ({
     ]).start();
   };
 
-  const fadeOut = () => {
+  const fadeOut = index => {
     Animated.parallel([
-      Animated.timing(posAnim, {
+      Animated.timing(posAnim.current[index], {
         toValue: -100,
         duration: ANIM_TIMING,
         useNativeDriver: false,
         easing: Easing.ease,
       }),
-      Animated.timing(fadeAnim, {
+      Animated.timing(fadeAnim.current[index], {
         toValue: 0,
         duration: ANIM_TIMING,
         useNativeDriver: false,
@@ -161,14 +165,14 @@ const TasksContainer = ({
                       setArray([...array]);
                     }}
                     onLongPress={() => {
-                      fadeIn();
+                      fadeIn(index);
                       setTimeout(() => {
-                        fadeOut();
+                        fadeOut(index);
                       }, 3000);
                     }}
                     containerStyle={styles.listItem}
                   />
-                  <AnimatedView style={styles.iconContainer}>
+                  <AnimatedView style={styles.iconContainer} index={index}>
                     <Icon
                       name="edit"
                       type="font-awesome"
