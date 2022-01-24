@@ -5,6 +5,7 @@ import { ModalComponentTypes } from 'src/components/home/utils/types';
 import EditTaskModal from 'src/components/home/edit-modal/edit-task-modal';
 
 const EditModal = ({
+  taskIndex,
   visible,
   setVisible,
   taskInput,
@@ -27,6 +28,7 @@ const EditModal = ({
       }}
       overlayStyle={styles.modalStyle}>
       <EditTaskModal
+        taskIndex={taskIndex}
         setVisible={setVisible}
         input={taskInput}
         setInput={setTaskInput}

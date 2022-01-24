@@ -19,7 +19,6 @@ const EditTaskModal = ({
   setArray,
   taskIndex,
 }: Props) => {
-  console.log(taskIndex);
   const styles = StyleSheet.create({
     text: {
       fontSize: 18,
@@ -47,11 +46,10 @@ const EditTaskModal = ({
           fontSize={18}
           onPress={() => {
             if (input.length > 0) {
-              console.log(taskIndex);
               const tempArray = [...array];
               const task = tempArray[taskIndex];
-              /*  task.name = input;
-              setArray(tempArray); */
+              task.name = input;
+              setArray(tempArray);
               setVisible(false);
             }
           }}

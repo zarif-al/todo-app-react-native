@@ -1,5 +1,12 @@
-import React from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import React, { useRef } from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Animated,
+  Easing,
+} from 'react-native';
 import { CheckBox, Icon } from 'react-native-elements';
 import { ButtonStyled } from 'src/components/_root';
 import { TaskListComponentTypes } from 'src/components/home/utils/types';
@@ -13,6 +20,7 @@ const TasksContainer = ({
   array,
   setArray,
 }: TaskListComponentTypes) => {
+  const ANIM_TIMING = 300;
   const styles = StyleSheet.create({
     headingTwo: {
       fontSize: 23,
@@ -60,7 +68,70 @@ const TasksContainer = ({
       padding: 0,
       alignSelf: 'flex-start',
     },
+    checkBoxContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    iconContainer: {
+      flexDirection: 'row',
+    },
+    iconStyle: {
+      marginRight: 10,
+    },
   });
+
+  const fadeAnim = useRef([]);
+  fadeAnim.current = [];
+  const posAnim = useRef([]);
+  posAnim.current = [];
+
+  function AnimatedView({ style, index, children }) {
+    fadeAnim.current.push(new Animated.Value(0));
+    posAnim.current.push(new Animated.Value(-100));
+    return (
+      <Animated.View // Special animatable View
+        style={{
+          ...style,
+          right: posAnim.current[index], // Bind opacity to animated value
+          opacity: fadeAnim.current[index],
+        }}>
+        {children}
+      </Animated.View>
+    );
+  }
+
+  const fadeIn = index => {
+    Animated.parallel([
+      Animated.timing(posAnim.current[index], {
+        toValue: 10,
+        duration: ANIM_TIMING,
+        useNativeDriver: false,
+        easing: Easing.ease,
+      }),
+      Animated.timing(fadeAnim.current[index], {
+        toValue: 1,
+        duration: ANIM_TIMING,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  const fadeOut = index => {
+    Animated.parallel([
+      Animated.timing(posAnim.current[index], {
+        toValue: -100,
+        duration: ANIM_TIMING,
+        useNativeDriver: false,
+        easing: Easing.ease,
+      }),
+      Animated.timing(fadeAnim.current[index], {
+        toValue: 0,
+        duration: ANIM_TIMING,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
 
   return (
     <>
@@ -85,24 +156,44 @@ const TasksContainer = ({
           <View style={styles.listContainer}>
             {array.map((item, index) => {
               return (
-                <CheckBox
-                  key={index}
-                  center
-                  title={item.name}
-                  checked={item.completed}
-                  checkedColor={colors.background2}
-                  onPress={() => {
-                    array[index].completed =
-                      array[index].completed === false ? true : false;
-                    setArray([...array]);
-                  }}
-                  onLongPress={() => {
-                    setTaskInput(item.name);
-                    setTaskIndex(index);
-                    setEditModalOpen(true);
-                  }}
-                  containerStyle={styles.listItem}
-                />
+                <View style={styles.checkBoxContainer} key={index}>
+                  <CheckBox
+                    center
+                    title={item.name}
+                    checked={item.completed}
+                    checkedColor={colors.background2}
+                    onPress={() => {
+                      array[index].completed =
+                        array[index].completed === false ? true : false;
+                      setArray([...array]);
+                    }}
+                    onLongPress={() => {
+                      fadeIn(index);
+                      setTimeout(() => {
+                        fadeOut(index);
+                      }, 3000);
+                    }}
+                    containerStyle={styles.listItem}
+                  />
+                  <AnimatedView style={styles.iconContainer} index={index}>
+                    <Icon
+                      name="edit"
+                      type="font-awesome"
+                      color={colors.text}
+                      containerStyle={styles.iconStyle}
+                      onPress={() => {
+                        setTaskInput(item.name);
+                        setTaskIndex(index);
+                        setEditModalOpen(true);
+                      }}
+                    />
+                    <Icon
+                      name="trash"
+                      type="font-awesome"
+                      color={colors.danger}
+                    />
+                  </AnimatedView>
+                </View>
               );
             })}
           </View>
