@@ -46,8 +46,10 @@ const DeleteModal = ({
           title="Confirm"
           fontSize={13}
           onPress={() => {
-            onDeleteTodo({ userId: userId, id: taskId });
-            setVisible(false);
+            if (taskId) {
+              onDeleteTodo({ userId: userId, id: taskId });
+              setVisible(false);
+            }
           }}
         />
         <ButtonStyled

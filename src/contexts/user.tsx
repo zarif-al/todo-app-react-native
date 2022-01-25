@@ -45,7 +45,7 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
     });
   };
 
-  const onUpdateTodo = async (todoUpdate: ICreateTodoInput) => {
+  const onUpdateTodo = async (todoUpdate: IUpdateTodoInput) => {
     await updateTodo({
       variables: {
         input: todoUpdate,

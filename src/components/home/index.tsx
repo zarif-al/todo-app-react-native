@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, StyleSheet, Pressable, Text } from 'react-native';
 import { AuthContext } from 'src/contexts/auth';
 import { UserContext } from 'src/contexts/user';
 import { ThemeContext } from 'src/contexts/theme';
 import Circles from 'src/components/_root/circles';
-import { TaskType } from 'src/components/home/utils/types';
 import Welcome from 'src/components/home/welcome';
 import TasksContainer from 'src/components/home/tasks-container';
 import AddModal from 'src/components/home/add-modal';
@@ -16,7 +15,6 @@ const HomeScreenComponent = () => {
   const { signOut, user } = useContext(AuthContext);
   const { onCreateTodo, onUpdateTodo, onDeleteTodo } = useContext(UserContext);
   const { colors } = useContext(ThemeContext);
-  const [array, setArray] = useState<TaskType[]>([]);
   const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
@@ -60,19 +58,6 @@ const HomeScreenComponent = () => {
     },
   });
 
-  useEffect(() => {
-    const tempArray = [];
-    if (array.length === 0) {
-      for (let i = 0; i < 5; i++) {
-        tempArray.push({
-          name: 'Item ' + i,
-          completed: i % 2 === 0 ? true : false,
-        });
-      }
-      setArray(tempArray);
-    }
-  }, [array]);
-
   return (
     <View style={styles.container}>
       <Circles />
@@ -92,7 +77,7 @@ const HomeScreenComponent = () => {
           </View>
           <View style={styles.secondContainer}>
             <TasksContainer
-              array={user.todos}
+              todos={user.todos}
               userId={user._id}
               onUpdateTodo={onUpdateTodo}
               setAddModalOpen={setAddModalOpen}

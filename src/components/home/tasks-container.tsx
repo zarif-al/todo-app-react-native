@@ -21,7 +21,7 @@ const TasksContainer = ({
   setDeleteModalOpen,
   setTaskInput,
   setTaskId,
-  array,
+  todos,
   onUpdateTodo,
   userId,
 }: TaskListComponentTypes) => {
@@ -84,6 +84,18 @@ const TasksContainer = ({
     iconStyle: {
       marginRight: 10,
     },
+    noTaskContainer: {
+      flex: 0.8,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: 10,
+    },
+    noTaskText: {
+      fontSize: 13,
+      opacity: 0.7,
+      fontWeight: '700',
+      textAlign: 'center',
+    },
   });
   // TODO : Fix types
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -140,6 +152,91 @@ const TasksContainer = ({
     ]).start();
   };
 
+  const TodoList = (): JSX.Element => {
+    if (todos) {
+      if (todos.length === 0) {
+        return (
+          <View style={styles.noTaskContainer}>
+            <Text style={styles.noTaskText}>
+              You can start adding tasks by clicking plus icon above.
+            </Text>
+          </View>
+        );
+      } else {
+        return (
+          <ScrollView style={styles.scrollView}>
+            <View style={styles.listContainer}>
+              {todos.map((item, index) => {
+                return (
+                  <View style={styles.checkBoxContainer} key={index}>
+                    <CheckBox
+                      center
+                      title={item.task}
+                      checked={item.completed}
+                      checkedColor={colors.background2}
+                      onPress={() => {
+                        onUpdateTodo({
+                          userId: userId,
+                          id: item.id,
+                          completed: !item.completed,
+                        });
+                      }}
+                      onLongPress={() => {
+                        fadeIn(index);
+                        setTimeout(() => {
+                          fadeOut(index);
+                        }, 3000);
+                      }}
+                      containerStyle={styles.listItem}
+                    />
+                    <AnimatedView style={styles.iconContainer} index={index}>
+                      <ButtonStyled
+                        icon={
+                          <Icon
+                            name="edit"
+                            type="font-awesome"
+                            color={colors.text}
+                          />
+                        }
+                        onPress={() => {
+                          setTaskInput(item.task);
+                          setTaskId(item.id);
+                          setEditModalOpen(true);
+                        }}
+                        marginRight={10}
+                      />
+                      <ButtonStyled
+                        icon={
+                          <Icon
+                            name="trash"
+                            type="font-awesome"
+                            color={colors.danger}
+                          />
+                        }
+                        onPress={() => {
+                          setTaskId(item.id);
+                          setDeleteModalOpen(true);
+                        }}
+                      />
+                    </AnimatedView>
+                  </View>
+                );
+              })}
+            </View>
+          </ScrollView>
+        );
+      }
+    } else {
+      return (
+        <View style={styles.noTaskContainer}>
+          <Text style={styles.noTaskText}>
+            There was an error retrieving your tasks. Please contact admin.
+          </Text>
+        </View>
+      );
+    }
+  };
+
   return (
     <>
       <Text style={styles.headingTwo}>Tasks List</Text>
@@ -159,66 +256,7 @@ const TasksContainer = ({
             }}
           />
         </View>
-        <ScrollView style={styles.scrollView}>
-          <View style={styles.listContainer}>
-            {array.map((item, index) => {
-              return (
-                <View style={styles.checkBoxContainer} key={index}>
-                  <CheckBox
-                    center
-                    title={item.task}
-                    checked={item.completed}
-                    checkedColor={colors.background2}
-                    onPress={() => {
-                      onUpdateTodo({
-                        userId: userId,
-                        id: item.id,
-                        completed: !item.completed,
-                      });
-                    }}
-                    onLongPress={() => {
-                      fadeIn(index);
-                      setTimeout(() => {
-                        fadeOut(index);
-                      }, 3000);
-                    }}
-                    containerStyle={styles.listItem}
-                  />
-                  <AnimatedView style={styles.iconContainer} index={index}>
-                    <ButtonStyled
-                      icon={
-                        <Icon
-                          name="edit"
-                          type="font-awesome"
-                          color={colors.text}
-                        />
-                      }
-                      onPress={() => {
-                        setTaskInput(item.task);
-                        setTaskId(item.id);
-                        setEditModalOpen(true);
-                      }}
-                      marginRight={10}
-                    />
-                    <ButtonStyled
-                      icon={
-                        <Icon
-                          name="trash"
-                          type="font-awesome"
-                          color={colors.danger}
-                        />
-                      }
-                      onPress={() => {
-                        setTaskId(item.id);
-                        setDeleteModalOpen(true);
-                      }}
-                    />
-                  </AnimatedView>
-                </View>
-              );
-            })}
-          </View>
-        </ScrollView>
+        <TodoList />
       </View>
     </>
   );

@@ -1,14 +1,15 @@
 import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import { ButtonStyled, TextInputStyled } from 'src/components/_root';
+import { IUpdateTodoInput } from 'src/utils/types/schema';
 
 interface Props {
   setVisible: (visible: boolean) => void;
   input: string;
   setInput: (input: string) => void;
-  array: Array<{ name: string; completed: boolean }>;
-  setArray: (array: Array<{ name: string; completed: boolean }>) => void;
   taskId: string | null;
+  userId: string;
+  onUpdateTodo: (todoUpdate: IUpdateTodoInput) => void;
 }
 
 const EditTaskModal = ({

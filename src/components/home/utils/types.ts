@@ -1,5 +1,11 @@
 import { Colors } from 'src/contexts/theme';
-import { IUser } from 'src/utils/types/schema';
+import {
+  IUser,
+  ITodo,
+  ICreateTodoInput,
+  IUpdateTodoInput,
+  IDeleteTodoInput,
+} from 'src/utils/types/schema';
 
 export interface TaskType {
   name: string;
@@ -14,34 +20,37 @@ export interface WelcomeScreenTypes {
 export interface ModalComponentTypes {
   visible: boolean;
   setVisible: (visible: boolean) => void;
-  array: TaskType[];
-  setArray: (array: TaskType[]) => void;
+  userId: string;
 }
 
 export interface AddModalComponentTypes extends ModalComponentTypes {
   taskInput: string;
   setTaskInput: (taskInput: string) => void;
+  onCreateTodo: (todo: ICreateTodoInput) => void;
 }
 
 export interface EditModalComponentTypes extends ModalComponentTypes {
   taskInput: string;
   setTaskInput: (taskInput: string) => void;
-  taskIndex: number | null;
+  taskId: string | null;
+  onUpdateTodo: (todoUpdate: IUpdateTodoInput) => void;
 }
 
 export interface DeleteModalComponentTypes extends ModalComponentTypes {
-  taskIndex: number | null;
+  taskId: string | null;
+  onDeleteTodo: (todoDelete: IDeleteTodoInput) => void;
 }
 
 export interface TaskListComponentTypes {
-  array: TaskType[];
-  setArray: (array: TaskType[]) => void;
-  colors: Colors;
-  setTaskIndex: (taskIndex: number) => void;
+  todos?: ITodo[] | null;
+  userId: string;
+  onUpdateTodo: (todoUpdate: IUpdateTodoInput) => void;
+  setAddModalOpen: (visible: boolean) => void;
+  setEditModalOpen: (visible: boolean) => void;
+  setDeleteModalOpen: (visible: boolean) => void;
+  setTaskId: (taskId: string) => void;
   setTaskInput: (taskInput: string) => void;
-  setDeleteModalOpen: (deleteModalOpen: boolean) => void;
-  setEditModalOpen: (editModalOpen: boolean) => void;
-  setAddModalOpen: (addModalOpen: boolean) => void;
+  colors: Colors;
 }
 
 export interface AnimatedViewProps {
