@@ -41,7 +41,7 @@ const AddTaskModal = ({
       <View style={styles.buttonContainer}>
         <ButtonStyled
           title="Add"
-          fontSize={18}
+          fontSize={15}
           onPress={() => {
             if (input.length > 0) {
               onCreateTodo({
@@ -49,6 +49,7 @@ const AddTaskModal = ({
                 task: input,
                 completed: false,
               });
+              setInput('');
               setVisible(false);
             }
           }}
@@ -56,7 +57,7 @@ const AddTaskModal = ({
         <ButtonStyled
           variant="danger-outlined"
           title="Cancel"
-          fontSize={18}
+          fontSize={15}
           onPress={() => {
             setInput('');
             setVisible(false);

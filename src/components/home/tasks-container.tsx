@@ -97,7 +97,9 @@ const TasksContainer = ({
       textAlign: 'center',
     },
   });
-  // TODO : Fix types
+
+  // TODO : Fix animation out when clicking another task
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const fadeAnim = useRef<any>([]);
   fadeAnim.current = [];
@@ -136,7 +138,7 @@ const TasksContainer = ({
     ]).start();
   };
 
-  const fadeOut = (index: number) => {
+  /*  const fadeOut = (index: number) => {
     Animated.parallel([
       Animated.timing(posAnim.current[index], {
         toValue: -100,
@@ -151,7 +153,7 @@ const TasksContainer = ({
       }),
     ]).start();
   };
-
+ */
   const TodoList = (): JSX.Element => {
     if (todos) {
       if (todos.length === 0) {
@@ -166,62 +168,60 @@ const TasksContainer = ({
         return (
           <ScrollView style={styles.scrollView}>
             <View style={styles.listContainer}>
-              {todos.map((item, index) => {
-                return (
-                  <View style={styles.checkBoxContainer} key={index}>
-                    <CheckBox
-                      center
-                      title={item.task}
-                      checked={item.completed}
-                      checkedColor={colors.background2}
-                      onPress={() => {
-                        onUpdateTodo({
-                          userId: userId,
-                          id: item.id,
-                          completed: !item.completed,
-                        });
-                      }}
-                      onLongPress={() => {
-                        fadeIn(index);
-                        setTimeout(() => {
-                          fadeOut(index);
-                        }, 3000);
-                      }}
-                      containerStyle={styles.listItem}
-                    />
-                    <AnimatedView style={styles.iconContainer} index={index}>
-                      <ButtonStyled
-                        icon={
-                          <Icon
-                            name="edit"
-                            type="font-awesome"
-                            color={colors.text}
-                          />
-                        }
+              {todos &&
+                todos.map((item, index) => {
+                  return (
+                    <View style={styles.checkBoxContainer} key={index}>
+                      <CheckBox
+                        center
+                        title={item.task}
+                        checked={item.completed}
+                        checkedColor={colors.background2}
                         onPress={() => {
-                          setTaskInput(item.task);
-                          setTaskId(item.id);
-                          setEditModalOpen(true);
+                          onUpdateTodo({
+                            userId: userId,
+                            id: item.id,
+                            completed: !item.completed,
+                          });
                         }}
-                        marginRight={10}
-                      />
-                      <ButtonStyled
-                        icon={
-                          <Icon
-                            name="trash"
-                            type="font-awesome"
-                            color={colors.danger}
-                          />
-                        }
-                        onPress={() => {
-                          setTaskId(item.id);
-                          setDeleteModalOpen(true);
+                        onLongPress={() => {
+                          fadeIn(index);
                         }}
+                        containerStyle={styles.listItem}
                       />
-                    </AnimatedView>
-                  </View>
-                );
-              })}
+                      <AnimatedView style={styles.iconContainer} index={index}>
+                        <ButtonStyled
+                          icon={
+                            <Icon
+                              name="edit"
+                              type="font-awesome"
+                              color={colors.text}
+                            />
+                          }
+                          onPress={() => {
+                            setTaskInput(item.task);
+                            setTaskId(item.id);
+                            setEditModalOpen(true);
+                          }}
+                          marginRight={10}
+                        />
+                        <ButtonStyled
+                          icon={
+                            <Icon
+                              name="trash"
+                              type="font-awesome"
+                              color={colors.danger}
+                            />
+                          }
+                          onPress={() => {
+                            setTaskId(item.id);
+                            setDeleteModalOpen(true);
+                          }}
+                        />
+                      </AnimatedView>
+                    </View>
+                  );
+                })}
             </View>
           </ScrollView>
         );

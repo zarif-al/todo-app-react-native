@@ -15,7 +15,7 @@ const DeleteModal = ({
     modalStyle: {
       borderRadius: 10,
       padding: 15,
-      width: '60%',
+      width: '85%',
     },
     buttonContainer: {
       flexDirection: 'row',
@@ -23,7 +23,7 @@ const DeleteModal = ({
       marginTop: 10,
     },
     text: {
-      fontSize: 15,
+      fontSize: 18,
       textAlign: 'center',
       color: 'black',
       fontWeight: 'bold',
@@ -42,9 +42,9 @@ const DeleteModal = ({
 
       <View style={styles.buttonContainer}>
         <ButtonStyled
-          variant="danger-outlined"
+          variant="danger"
           title="Confirm"
-          fontSize={13}
+          fontSize={15}
           onPress={() => {
             if (taskId) {
               onDeleteTodo({ userId: userId, id: taskId });
@@ -53,9 +53,8 @@ const DeleteModal = ({
           }}
         />
         <ButtonStyled
-          variant="outlined"
           title="Cancel"
-          fontSize={13}
+          fontSize={15}
           onPress={() => {
             setVisible(false);
           }}
