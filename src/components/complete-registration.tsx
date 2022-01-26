@@ -2,13 +2,20 @@ import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { AuthContext } from 'src/contexts/auth';
 import { ThemeContext } from 'src/contexts/theme';
-import { Header, ButtonStyled, Subheading, TextInputStyled } from 'src/components/_root';
+import {
+  Header,
+  ButtonStyled,
+  Subheading,
+  TextInputStyled,
+} from 'src/components/_root';
+import Circles from 'src/components/_root/circles';
 
 const CompleteRegistration = () => {
   const [firstName, setFirstName] = useState('Abdullah');
   const [lastName, setLastName] = useState('Al Zarif');
   const [userName, setUserName] = useState('zarif_al96');
-  const { onCreateUser, apiError, apiLoading, error, setError } = useContext(AuthContext);
+  const { onCreateUser, apiError, apiLoading, error, setError } =
+    useContext(AuthContext);
   const { colors } = useContext(ThemeContext);
 
   const styles = StyleSheet.create({
@@ -16,6 +23,7 @@ const CompleteRegistration = () => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: colors.background,
     },
     text: {
       textAlign: 'center',
@@ -39,12 +47,13 @@ const CompleteRegistration = () => {
       textAlign: 'center',
       fontWeight: 'bold',
       fontSize: 15,
-      color: colors.warning,
+      color: colors.danger,
     },
   });
 
   return (
     <View style={styles.container}>
+      <Circles />
       <Header content="Almost There!" color={colors.primary} />
       <Subheading content="What should we call you?" />
       <View style={styles.form}>

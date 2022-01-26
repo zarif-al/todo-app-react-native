@@ -6,6 +6,7 @@ module.exports = {
     project: './tsconfig.json',
   }, */
   plugins: ['@typescript-eslint'],
+  ignorePatterns: ['src/utils/types/schema.ts'],
   rules: {
     ignoreFunctionTypeParameterNameValueShadow: 'off',
     '@typescript-eslint/no-explicit-any': 'error',

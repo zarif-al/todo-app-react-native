@@ -14,11 +14,9 @@ const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     marginBottom: 20,
-    fontSize: 40,
+    fontSize: 25,
     fontWeight: 'bold',
-    textShadowColor: 'black',
-    textShadowOffset: { width: 0.5, height: 0.5 },
-    textShadowRadius: 5,
+    zIndex: 10,
   },
 });
 
