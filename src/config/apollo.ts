@@ -12,12 +12,12 @@ const httpLink = new HttpLink({ uri: GRAPHQL_URI });
 const cache = new InMemoryCache();
 
 const authLink = setContext(async (_, { headers }) => {
-  const fireId = await auth().currentUser?.getIdToken();
+  const token = await auth().currentUser?.getIdToken();
 
   return {
     headers: {
       ...headers,
-      authorization: fireId ? `Bearer ${fireId}` : '',
+      authorization: token ? `Bearer ${token}` : '',
     },
   };
 });
