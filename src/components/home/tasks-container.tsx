@@ -98,14 +98,14 @@ const TasksContainer = ({
     },
   });
 
-  // TODO : Fix animation out when clicking another task
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const fadeAnim = useRef<any>([]);
   fadeAnim.current = [];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const posAnim = useRef<any>([]);
   posAnim.current = [];
+
+  const timeOutArray = [];
 
   function AnimatedView({ style, index, children }: AnimatedViewProps) {
     fadeAnim.current.push(new Animated.Value(0));
@@ -138,7 +138,7 @@ const TasksContainer = ({
     ]).start();
   };
 
-  /*  const fadeOut = (index: number) => {
+  const fadeOut = (index: number) => {
     Animated.parallel([
       Animated.timing(posAnim.current[index], {
         toValue: -100,
@@ -153,7 +153,7 @@ const TasksContainer = ({
       }),
     ]).start();
   };
- */
+
   const TodoList = (): JSX.Element => {
     if (todos) {
       if (todos.length === 0) {
@@ -186,6 +186,9 @@ const TasksContainer = ({
                         }}
                         onLongPress={() => {
                           fadeIn(index);
+                          timeOutArray[index] = setTimeout(() => {
+                            fadeOut(index);
+                          }, 4000);
                         }}
                         containerStyle={styles.listItem}
                       />
@@ -214,6 +217,8 @@ const TasksContainer = ({
                             />
                           }
                           onPress={() => {
+                            timeOutArray[index] &&
+                              clearTimeout(timeOutArray[index]);
                             setTaskId(item.id);
                             setDeleteModalOpen(true);
                           }}
