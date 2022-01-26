@@ -8,16 +8,9 @@ interface Props {
   input: string;
   setInput: (input: string) => void;
   onCreateTodo: (todo: ICreateTodoInput) => void;
-  userId: string;
 }
 
-const AddTaskModal = ({
-  setVisible,
-  input,
-  setInput,
-  onCreateTodo,
-  userId,
-}: Props) => {
+const AddTaskModal = ({ setVisible, input, setInput, onCreateTodo }: Props) => {
   const styles = StyleSheet.create({
     text: {
       fontSize: 18,
@@ -45,7 +38,6 @@ const AddTaskModal = ({
           onPress={() => {
             if (input.length > 0) {
               onCreateTodo({
-                userId: userId,
                 task: input,
                 completed: false,
               });

@@ -23,7 +23,6 @@ const TasksContainer = ({
   setTaskId,
   todos,
   onUpdateTodo,
-  userId,
 }: TaskListComponentTypes) => {
   const ANIM_TIMING = 300;
   const styles = StyleSheet.create({
@@ -105,7 +104,7 @@ const TasksContainer = ({
   const posAnim = useRef<any>([]);
   posAnim.current = [];
 
-  const timeOutArray = [];
+  const timeOutArray: ReturnType<typeof setTimeout>[] = [];
 
   function AnimatedView({ style, index, children }: AnimatedViewProps) {
     fadeAnim.current.push(new Animated.Value(0));
@@ -179,7 +178,6 @@ const TasksContainer = ({
                         checkedColor={colors.background2}
                         onPress={() => {
                           onUpdateTodo({
-                            userId: userId,
                             id: item.id,
                             completed: !item.completed,
                           });

@@ -5,7 +5,6 @@ import { DeleteModalComponentTypes } from 'src/components/home/utils/types';
 import { ButtonStyled } from 'src/components/_root';
 
 const DeleteModal = ({
-  userId,
   taskId,
   visible,
   setVisible,
@@ -47,7 +46,7 @@ const DeleteModal = ({
           fontSize={15}
           onPress={() => {
             if (taskId) {
-              onDeleteTodo({ userId: userId, id: taskId });
+              onDeleteTodo({ id: taskId });
               setVisible(false);
             }
           }}

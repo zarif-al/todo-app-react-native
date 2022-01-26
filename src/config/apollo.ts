@@ -13,7 +13,6 @@ const cache = new InMemoryCache();
 
 const authLink = setContext(async (_, { headers }) => {
   const token = await auth().currentUser?.getIdToken();
-
   return {
     headers: {
       ...headers,

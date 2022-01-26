@@ -20,7 +20,6 @@ export interface WelcomeScreenTypes {
 export interface ModalComponentTypes {
   visible: boolean;
   setVisible: (visible: boolean) => void;
-  userId: string;
 }
 
 export interface AddModalComponentTypes extends ModalComponentTypes {
@@ -43,7 +42,6 @@ export interface DeleteModalComponentTypes extends ModalComponentTypes {
 
 export interface TaskListComponentTypes {
   todos?: ITodo[] | null;
-  userId: string;
   onUpdateTodo: (todoUpdate: IUpdateTodoInput) => void;
   setAddModalOpen: (visible: boolean) => void;
   setEditModalOpen: (visible: boolean) => void;

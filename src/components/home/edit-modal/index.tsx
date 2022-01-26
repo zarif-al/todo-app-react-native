@@ -10,7 +10,6 @@ const EditModal = ({
   setVisible,
   taskInput,
   setTaskInput,
-  userId,
   onUpdateTodo,
 }: EditModalComponentTypes) => {
   const styles = StyleSheet.create({
@@ -32,7 +31,6 @@ const EditModal = ({
         setVisible={setVisible}
         input={taskInput}
         setInput={setTaskInput}
-        userId={userId}
         onUpdateTodo={onUpdateTodo}
       />
     </Overlay>

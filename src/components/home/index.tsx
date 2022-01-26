@@ -78,7 +78,6 @@ const HomeScreenComponent = () => {
           <View style={styles.secondContainer}>
             <TasksContainer
               todos={user.todos}
-              userId={user._id}
               onUpdateTodo={onUpdateTodo}
               setAddModalOpen={setAddModalOpen}
               setEditModalOpen={setEditModalOpen}
@@ -94,7 +93,6 @@ const HomeScreenComponent = () => {
             taskInput={taskInput}
             setTaskInput={setTaskInput}
             onCreateTodo={onCreateTodo}
-            userId={user._id}
           />
           <EditModal
             taskId={taskId}
@@ -102,11 +100,9 @@ const HomeScreenComponent = () => {
             setVisible={setEditModalOpen}
             taskInput={taskInput}
             setTaskInput={setTaskInput}
-            userId={user._id}
             onUpdateTodo={onUpdateTodo}
           />
           <DeleteModal
-            userId={user._id}
             taskId={taskId}
             visible={deleteModalOpen}
             setVisible={setDeleteModalOpen}

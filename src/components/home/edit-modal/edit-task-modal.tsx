@@ -8,7 +8,6 @@ interface Props {
   input: string;
   setInput: (input: string) => void;
   taskId: string | null;
-  userId: string;
   onUpdateTodo: (todoUpdate: IUpdateTodoInput) => void;
 }
 
@@ -16,7 +15,6 @@ const EditTaskModal = ({
   setVisible,
   input,
   setInput,
-  userId,
   onUpdateTodo,
   taskId,
 }: Props) => {
@@ -48,7 +46,6 @@ const EditTaskModal = ({
           onPress={() => {
             if (input.length > 0 && taskId !== null) {
               onUpdateTodo({
-                userId: userId,
                 id: taskId,
                 task: input,
               });
