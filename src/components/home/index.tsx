@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { View, StyleSheet, Pressable, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
+import { ButtonStyled } from 'src/components/_root';
 import { AuthContext } from 'src/contexts/auth';
 import { UserContext } from 'src/contexts/user';
 import { ThemeContext } from 'src/contexts/theme';
@@ -9,6 +10,7 @@ import TasksContainer from 'src/components/home/tasks-container';
 import AddModal from 'src/components/home/add-modal';
 import EditModal from 'src/components/home/edit-modal';
 import DeleteModal from 'src/components/home/delete-modal';
+import HelpModal from 'src/components/home/help-modal';
 import { Icon } from 'react-native-elements';
 
 const HomeScreenComponent = () => {
@@ -18,6 +20,7 @@ const HomeScreenComponent = () => {
   const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
+  const [helpModalOpen, setHelpModalOpen] = useState<boolean>(false);
   const [taskInput, setTaskInput] = useState('');
   const [taskId, setTaskId] = useState<string | null>(null);
   const styles = StyleSheet.create({
@@ -49,7 +52,8 @@ const HomeScreenComponent = () => {
       flex: 0.6,
       padding: 24,
     },
-    signOutContainer: {
+    absoluteIconsContainer: {
+      flexDirection: 'row',
       position: 'absolute',
       right: 0,
       top: 0,
@@ -67,10 +71,22 @@ const HomeScreenComponent = () => {
         </View>
       ) : (
         <>
-          <View style={styles.signOutContainer}>
-            <Pressable onPress={() => signOut()}>
-              <Icon name="sign-out" type="font-awesome" color="white" />
-            </Pressable>
+          <View style={styles.absoluteIconsContainer}>
+            <ButtonStyled
+              icon={
+                <Icon
+                  name="question-circle"
+                  type="font-awesome"
+                  color="white"
+                />
+              }
+              onPress={() => setHelpModalOpen(true)}
+              marginRight={10}
+            />
+            <ButtonStyled
+              icon={<Icon name="sign-out" type="font-awesome" color="white" />}
+              onPress={() => signOut()}
+            />
           </View>
           <View style={styles.firstContainer}>
             <Welcome colors={colors} user={user} />
@@ -108,6 +124,7 @@ const HomeScreenComponent = () => {
             setVisible={setDeleteModalOpen}
             onDeleteTodo={onDeleteTodo}
           />
+          <HelpModal visible={helpModalOpen} setVisible={setHelpModalOpen} />
         </>
       )}
     </View>
