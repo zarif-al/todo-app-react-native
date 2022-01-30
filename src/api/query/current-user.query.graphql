@@ -1,8 +1,14 @@
 query CurrentUser {
   currentUser {
+    _id
     userName
     firstName
     lastName
     email
+    todos {
+      id
+      task
+      completed
+    }
   }
 }

@@ -1,12 +1,12 @@
-import React, {createContext, useState, useEffect} from 'react';
-import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {useNavigation} from '@react-navigation/native';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from 'src/App';
+import React, { createContext, useState, useEffect } from 'react';
+import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from 'src/App';
 import CreateUser from 'src/api/mutation/create-user.mutation.graphql';
 import CurrentUser from 'src/api/query/current-user.query.graphql';
-import {useMutation, ApolloError, useLazyQuery} from '@apollo/client';
-import {IUser} from 'src/utils/types/schema';
+import { useMutation, ApolloError, useLazyQuery } from '@apollo/client';
+import { IUser } from 'src/utils/types/schema';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -37,6 +37,7 @@ export const AuthContext = createContext({
   apiError: {} as ApolloError | undefined,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onCreateUser: (input: onCreateUserInput) => {},
+  currentUserRefetch: () => {},
 });
 
 export default function AuthContextProvider({
@@ -50,7 +51,7 @@ export default function AuthContextProvider({
   const [error, setError] = useState<string | null>(null);
   const routeName = navigationState?.routes[navigationState.index].name;
 
-  const [createUser, {loading: apiLoading, error: apiError}] =
+  const [createUser, { loading: apiLoading, error: apiError }] =
     useMutation(CreateUser);
 
   const [
@@ -60,6 +61,7 @@ export default function AuthContextProvider({
       loading: currentUserLoading,
       error: currentUserError,
       client,
+      refetch: currentUserRefetch,
     },
   ] = useLazyQuery(CurrentUser, {
     fetchPolicy: 'network-only',
@@ -74,10 +76,10 @@ export default function AuthContextProvider({
           fireId: firebaseUser?.uid,
         },
       },
-      refetchQueries: [{query: CurrentUser}],
+      refetchQueries: [{ query: CurrentUser }],
       onCompleted: () => {
         auth()
-          .currentUser?.updateProfile({displayName: input.userName})
+          .currentUser?.updateProfile({ displayName: input.userName })
           .then(() => {
             navigation.navigate('Splash');
           });
@@ -203,6 +205,7 @@ export default function AuthContextProvider({
         apiLoading,
         apiError,
         onCreateUser,
+        currentUserRefetch,
       }}>
       {children}
     </AuthContext.Provider>

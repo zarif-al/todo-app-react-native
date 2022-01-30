@@ -1,11 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { AuthContext } from 'src/contexts/auth';
-import { Header, ButtonStyled, Subheading, TextInputStyled } from 'src/components/_root';
+import {
+  Header,
+  ButtonStyled,
+  Subheading,
+  TextInputStyled,
+} from 'src/components/_root';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'src/App';
 import { useNavigation } from '@react-navigation/native';
 import { ThemeContext } from 'src/contexts/theme';
+import Circles from 'src/components/_root/circles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
@@ -21,7 +27,7 @@ const Login = () => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'transparent',
+      backgroundColor: colors.background,
     },
     form: {
       justifyContent: 'center',
@@ -36,13 +42,14 @@ const Login = () => {
       textAlign: 'center',
       fontWeight: 'bold',
       fontSize: 15,
-      color: colors.warning,
+      color: colors.danger,
     },
   });
 
   return (
     <View style={styles.container}>
-      <Header content="PortfolioApp" color={colors.primary} />
+      <Circles />
+      <Header content="Welcome Back" color={colors.text} />
       <Subheading content="Please login to continue" />
       <View style={styles.form}>
         <TextInputStyled
@@ -72,15 +79,18 @@ const Login = () => {
               setError('Please fill all the fields');
             }
           }}
+          fontSize={18}
         />
       </View>
       <ButtonStyled
         title="New Here?"
+        color={colors.text}
         onPress={() => {
           setError(null);
           navigation.navigate('Register');
         }}
         variant="link"
+        fontSize={15}
       />
     </View>
   );

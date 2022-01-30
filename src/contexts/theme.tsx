@@ -4,16 +4,17 @@ interface Props {
   children: React.ReactNode;
 }
 
-interface Colors {
+export interface Colors {
   primary: string;
   background: string;
+  background2: string;
   card?: string;
   text: string;
   border: string;
   notification: string;
   secondary: string;
   tertiary: string;
-  warning: string;
+  danger: string;
 }
 
 export const ThemeContext = createContext({
@@ -22,12 +23,13 @@ export const ThemeContext = createContext({
 
 export default function ThemeProvider({ children }: Props): JSX.Element {
   const colors = {
-    text: 'black',
-    primary: '#00b4d8',
+    text: '#2F2E41',
+    primary: '#8FE1D7',
     secondary: '#0077b6',
     tertiary: '#ade8f4',
-    background: '#023e8a',
-    warning: 'red',
+    background: '#E6E6E6',
+    background2: '#0DAB98',
+    danger: '#dc3545',
     border: '#03045e',
     notification: '#caf0f8',
   };

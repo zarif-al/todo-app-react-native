@@ -5,7 +5,13 @@ import { ThemeContext } from 'src/contexts/theme';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'src/App';
 import { useNavigation } from '@react-navigation/native';
-import { Header, ButtonStyled, Subheading, TextInputStyled } from 'src/components/_root';
+import {
+  Header,
+  ButtonStyled,
+  Subheading,
+  TextInputStyled,
+} from 'src/components/_root';
+import Circles from 'src/components/_root/circles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
@@ -21,6 +27,7 @@ const Register = () => {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      backgroundColor: colors.background,
     },
     text: {
       textAlign: 'center',
@@ -47,14 +54,15 @@ const Register = () => {
       textAlign: 'center',
       fontWeight: 'bold',
       fontSize: 15,
-      color: colors.warning,
+      color: colors.danger,
     },
   });
 
   return (
     <View style={styles.container}>
-      <Header content="PortfolioApp" color={colors.primary} />
-      <Subheading content="Your career begins here." />
+      <Circles />
+      <Header content="Welcome Onboard" color={colors.text} />
+      <Subheading content="Lets help you meet your tasks." />
       <View style={styles.form}>
         <TextInputStyled
           setValue={setEmail}
@@ -83,16 +91,19 @@ const Register = () => {
               setError('Please fill all the fields');
             }
           }}
+          fontSize={18}
         />
       </View>
       <View style={styles.navigationLink}>
         <ButtonStyled
           title="Already Have an Account?"
           variant="link"
+          color={colors.text}
           onPress={() => {
             setError(null);
             navigation.navigate('Login');
           }}
+          fontSize={15}
         />
       </View>
     </View>

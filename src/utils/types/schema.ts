@@ -17,7 +17,6 @@ export interface Scalars {
 export interface ICreateTodoInput {
   completed: Scalars['Boolean'];
   task: Scalars['String'];
-  userId: Scalars['ID'];
 }
 
 export interface ICreateUserInput {
@@ -30,7 +29,6 @@ export interface ICreateUserInput {
 
 export interface IDeleteTodoInput {
   id: Scalars['ID'];
-  userId: Scalars['ID'];
 }
 
 export interface IMutation {
@@ -77,10 +75,9 @@ export interface ITodo {
 }
 
 export interface IUpdateTodoInput {
-  completed: Scalars['Boolean'];
+  completed?: InputMaybe<Scalars['Boolean']>;
   id: Scalars['ID'];
-  task: Scalars['String'];
-  userId: Scalars['ID'];
+  task?: InputMaybe<Scalars['String']>;
 }
 
 export interface IUser {

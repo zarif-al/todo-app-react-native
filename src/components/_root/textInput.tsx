@@ -28,8 +28,8 @@ const TextInputStyled = ({
       borderWidth: 1,
       fontSize: 15,
       borderRadius: 10,
-      color: error ? colors.warning : colors.secondary,
-      borderColor: error ? colors.warning : focused ? colors.primary : '#ccc',
+      color: error ? colors.danger : colors.text,
+      borderColor: error ? colors.danger : focused ? colors.text : '#ccc',
     },
   });
 
