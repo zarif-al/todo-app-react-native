@@ -3,6 +3,7 @@ mutation DeleteTodo($input: DeleteTodoInput!) {
     todos {
       id
       task
+      completed
     }
   }
 }
