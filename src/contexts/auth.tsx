@@ -37,6 +37,7 @@ export const AuthContext = createContext({
   apiError: {} as ApolloError | undefined,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onCreateUser: (input: onCreateUserInput) => {},
+  currentUserRefetch: () => {},
 });
 
 export default function AuthContextProvider({
@@ -60,6 +61,7 @@ export default function AuthContextProvider({
       loading: currentUserLoading,
       error: currentUserError,
       client,
+      refetch: currentUserRefetch,
     },
   ] = useLazyQuery(CurrentUser, {
     fetchPolicy: 'network-only',
@@ -203,6 +205,7 @@ export default function AuthContextProvider({
         apiLoading,
         apiError,
         onCreateUser,
+        currentUserRefetch,
       }}>
       {children}
     </AuthContext.Provider>
