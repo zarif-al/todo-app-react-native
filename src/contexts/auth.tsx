@@ -123,6 +123,10 @@ export default function AuthContextProvider({
           setError('Provided email address/password does not match.');
         } else if (signInError.code === 'auth/invalid-email') {
           setError('Provided email address is invalid.');
+        } else if (signInError.code === 'auth/too-many-requests') {
+          setError(
+            'You have sent in too many requests. Please try after 15 seconds.',
+          );
         } else {
           setError('Your account is disabled. Please contact support.');
         }
