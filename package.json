@@ -8,7 +8,8 @@
     "start": "react-native start --reset-cache",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "generate-types": "graphql-codegen"
+    "generate-types": "graphql-codegen",
+    "test:prod": "npx react-native run-android --variant=release"
   },
   "dependencies": {
     "@apollo/client": "^3.5.7",
