@@ -13,7 +13,6 @@ type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 interface onCreateUserInput {
   firstName: string;
   lastName: string;
-  userName: string;
 }
 
 interface Props {
@@ -77,7 +76,9 @@ export default function AuthContextProvider({
       refetchQueries: [{ query: CurrentUser }],
       onCompleted: () => {
         auth()
-          .currentUser?.updateProfile({ displayName: input.userName })
+          .currentUser?.updateProfile({
+            displayName: input.firstName + ' ' + input.lastName,
+          })
           .then(() => {
             navigation.navigate('Splash');
           });
