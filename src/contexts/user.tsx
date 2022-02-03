@@ -33,9 +33,9 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
         query: CurrentUser,
       });
 
-      let deepCopy = JSON.parse(JSON.stringify(existingUser.currentUser));
+      let deepCopy = cloneDeep(existingUser.currentUser);
 
-      deepCopy.todos = data.createTodo.todos;
+      deepCopy.todos.push(data.createTodo);
 
       const updatedUser = deepCopy;
 
@@ -43,10 +43,6 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
         query: CurrentUser,
         data: { currentUser: updatedUser },
       });
-    },
-    onError: () => {
-      //Reset state if error
-      currentUserRefetch();
     },
     refetchQueries: [{ query: CurrentUser }],
   });
@@ -57,13 +53,17 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
         query: CurrentUser,
       });
 
-      existingUser.currentUser.todos = data.updateTodo.todos;
+      const deepCopy = cloneDeep(existingUser.currentUser);
 
-      const updatedUser = existingUser.currentUser;
+      const index = deepCopy.todos.findIndex(
+        todo => todo.id === data.updateTodo.id,
+      );
+
+      deepCopy.todos[index] = data.updateTodo;
 
       cache.writeQuery({
         query: CurrentUser,
-        data: { currentUser: updatedUser },
+        data: { currentUser: deepCopy },
       });
     },
     onError: () => {
@@ -79,9 +79,7 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
         query: CurrentUser,
       });
 
-      const idToRemove = existingUser.currentUser.todos.filter(currentList =>
-        data.deleteTodo.todos.some(newList => newList.id !== currentList.id),
-      );
+      const taskId = data.deleteTodo.id;
 
       const identity = cache.identify(existingUser.currentUser);
 
@@ -90,7 +88,7 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
         fields: {
           todos(existingCommentRefs, { readField }) {
             return existingCommentRefs.filter(
-              commentRef => idToRemove[0].id !== readField('id', commentRef),
+              commentRef => taskId !== readField('id', commentRef),
             );
           },
         },
@@ -103,55 +101,48 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
   });
 
   const onCreateTodo = async (todo: ICreateTodoInput) => {
-    const deepClone = cloneDeep(user.todos);
-    deepClone.push({
-      id: 'randomString',
-      task: todo.task,
-      completed: false,
-    });
+    const optimisticObject = { ...todo };
+    optimisticObject.id = 'randomString';
+
     await createTodo({
       variables: {
         input: todo,
       },
       optimisticResponse: {
-        createTodo: {
-          todos: deepClone,
-        },
+        createTodo: optimisticObject,
       },
     });
   };
 
   const onUpdateTodo = async (todoUpdate: IUpdateTodoInput) => {
-    const deepClone = cloneDeep(user.todos);
+    const updatedItem = {
+      ...user.todos.find(todo => todo.id === todoUpdate.id),
+    };
     if (todoUpdate.task) {
-      const todo = deepClone.find(todoItem => todoItem.id === todoUpdate.id);
-      todo.task = todoUpdate.task;
+      updatedItem.task = todoUpdate.task;
     } else {
-      const todo = deepClone.find(todoItem => todoItem.id === todoUpdate.id);
-      todo.completed = todoUpdate.completed;
+      updatedItem.completed = todoUpdate.completed;
     }
-
     await updateTodo({
       variables: {
         input: todoUpdate,
       },
       optimisticResponse: {
         updateTodo: {
-          todos: deepClone,
+          ...updatedItem,
         },
       },
     });
   };
 
   const onDeleteTodo = async (todoDelete: IDeleteTodoInput) => {
-    const todos = user.todos.filter(todo => todo.id !== todoDelete.id);
     await deleteTodo({
       variables: {
         input: todoDelete,
       },
       optimisticResponse: {
         deleteTodo: {
-          todos: todos,
+          ...todoDelete,
         },
       },
     });
