@@ -4,13 +4,13 @@ import CurrentUser from 'src/api/query/current-user.query.graphql';
 import UpdateTodo from 'src/api/mutation/update-todo.mutation.graphql';
 import DeleteTodo from 'src/api/mutation/delete-todo.mutation.graphql';
 import {
-  /* IUser */ ICreateTodoInput,
+  ICreateTodoInput,
   IUpdateTodoInput,
   IDeleteTodoInput,
 } from 'src/utils/types/schema';
 import { AuthContext } from 'src/contexts/auth';
-import { /* useQuery, ApolloError, */ useMutation } from '@apollo/client';
-
+import { useMutation } from '@apollo/client';
+import { cloneDeep } from 'lodash';
 interface Props {
   children: React.ReactNode;
 }
@@ -33,9 +33,11 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
         query: CurrentUser,
       });
 
-      existingUser.currentUser.todos = data.createTodo.todos;
+      let deepCopy = JSON.parse(JSON.stringify(existingUser.currentUser));
 
-      const updatedUser = existingUser.currentUser;
+      deepCopy.todos = data.createTodo.todos;
+
+      const updatedUser = deepCopy;
 
       cache.writeQuery({
         query: CurrentUser,
@@ -77,25 +79,32 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
         query: CurrentUser,
       });
 
-      existingUser.currentUser.todos = data.deleteTodo.todos;
+      const idToRemove = existingUser.currentUser.todos.filter(currentList =>
+        data.deleteTodo.todos.some(newList => newList.id !== currentList.id),
+      );
 
-      const updatedUser = existingUser.currentUser;
+      const identity = cache.identify(existingUser.currentUser);
 
-      cache.writeQuery({
-        query: CurrentUser,
-        data: { currentUser: updatedUser },
+      cache.modify({
+        id: identity,
+        fields: {
+          todos(existingCommentRefs, { readField }) {
+            return existingCommentRefs.filter(
+              commentRef => idToRemove[0].id !== readField('id', commentRef),
+            );
+          },
+        },
       });
     },
     onError: () => {
-      //Reset state if error
       currentUserRefetch();
     },
     refetchQueries: [{ query: CurrentUser }],
   });
 
   const onCreateTodo = async (todo: ICreateTodoInput) => {
-    let todos = user.todos;
-    todos.push({
+    const deepClone = cloneDeep(user.todos);
+    deepClone.push({
       id: 'randomString',
       task: todo.task,
       completed: false,
@@ -106,19 +115,19 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
       },
       optimisticResponse: {
         createTodo: {
-          todos: todos,
+          todos: deepClone,
         },
       },
     });
   };
 
   const onUpdateTodo = async (todoUpdate: IUpdateTodoInput) => {
-    const todos = user.todos;
+    const deepClone = cloneDeep(user.todos);
     if (todoUpdate.task) {
-      const todo = todos.find(todo => todo.id === todoUpdate.id);
+      const todo = deepClone.find(todoItem => todoItem.id === todoUpdate.id);
       todo.task = todoUpdate.task;
     } else {
-      const todo = todos.find(todo => todo.id === todoUpdate.id);
+      const todo = deepClone.find(todoItem => todoItem.id === todoUpdate.id);
       todo.completed = todoUpdate.completed;
     }
 
@@ -128,7 +137,7 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
       },
       optimisticResponse: {
         updateTodo: {
-          todos: todos,
+          todos: deepClone,
         },
       },
     });

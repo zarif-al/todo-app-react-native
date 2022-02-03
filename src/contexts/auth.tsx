@@ -63,9 +63,7 @@ export default function AuthContextProvider({
       client,
       refetch: currentUserRefetch,
     },
-  ] = useLazyQuery(CurrentUser, {
-    fetchPolicy: 'network-only',
-  });
+  ] = useLazyQuery(CurrentUser);
 
   async function onCreateUser(input: onCreateUserInput): Promise<void> {
     createUser({
