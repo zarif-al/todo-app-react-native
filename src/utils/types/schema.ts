@@ -61,7 +61,6 @@ export interface IMutationUpdateTodoArgs {
 export interface IQuery {
   __typename?: 'Query';
   currentUser?: Maybe<IUser>;
-  getUsers: Array<IUser>;
 }
 
 export interface ITodo {

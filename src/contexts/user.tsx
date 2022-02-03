@@ -7,9 +7,12 @@ import {
   ICreateTodoInput,
   IUpdateTodoInput,
   IDeleteTodoInput,
+  IQuery,
+  ITodo,
+  IUser,
 } from 'src/utils/types/schema';
 import { AuthContext } from 'src/contexts/auth';
-import { useMutation } from '@apollo/client';
+import { useMutation, Reference } from '@apollo/client';
 import { cloneDeep } from 'lodash';
 interface Props {
   children: React.ReactNode;
@@ -29,42 +32,46 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
   const { user, currentUserRefetch } = useContext(AuthContext);
   const [createTodo] = useMutation(CreateTodo, {
     update: (cache, { data }) => {
-      let existingUser = cache.readQuery({
+      const existingUser: IQuery | null = cache.readQuery({
         query: CurrentUser,
       });
+      if (existingUser && existingUser.currentUser) {
+        const deepCopy = cloneDeep(existingUser.currentUser) as IUser;
 
-      let deepCopy = cloneDeep(existingUser.currentUser);
+        deepCopy.todos?.push(data.createTodo);
 
-      deepCopy.todos.push(data.createTodo);
+        const updatedUser = deepCopy;
 
-      const updatedUser = deepCopy;
-
-      cache.writeQuery({
-        query: CurrentUser,
-        data: { currentUser: updatedUser },
-      });
+        cache.writeQuery({
+          query: CurrentUser,
+          data: { currentUser: updatedUser },
+        });
+      }
     },
     refetchQueries: [{ query: CurrentUser }],
   });
 
   const [updateTodo] = useMutation(UpdateTodo, {
     update: (cache, { data }) => {
-      let existingUser = cache.readQuery({
+      let existingUser: IQuery | null = cache.readQuery({
         query: CurrentUser,
       });
+      if (existingUser && existingUser.currentUser) {
+        const deepCopy = cloneDeep(existingUser.currentUser) as IUser;
 
-      const deepCopy = cloneDeep(existingUser.currentUser);
+        const index = deepCopy.todos?.findIndex(
+          (todo: ITodo) => todo.id === data.updateTodo.id,
+        ) as number;
 
-      const index = deepCopy.todos.findIndex(
-        todo => todo.id === data.updateTodo.id,
-      );
+        if (index !== -1 && deepCopy?.todos) {
+          deepCopy.todos[index] = data.updateTodo;
+        }
 
-      deepCopy.todos[index] = data.updateTodo;
-
-      cache.writeQuery({
-        query: CurrentUser,
-        data: { currentUser: deepCopy },
-      });
+        cache.writeQuery({
+          query: CurrentUser,
+          data: { currentUser: deepCopy },
+        });
+      }
     },
     onError: () => {
       //Reset state if error
@@ -75,24 +82,26 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
 
   const [deleteTodo] = useMutation(DeleteTodo, {
     update: (cache, { data }) => {
-      let existingUser = cache.readQuery({
+      let existingUser: IQuery | null = cache.readQuery({
         query: CurrentUser,
       });
+      if (existingUser && existingUser.currentUser) {
+        const taskId = data.deleteTodo.id;
 
-      const taskId = data.deleteTodo.id;
+        const identity = cache.identify({ ...existingUser.currentUser });
 
-      const identity = cache.identify(existingUser.currentUser);
-
-      cache.modify({
-        id: identity,
-        fields: {
-          todos(existingCommentRefs, { readField }) {
-            return existingCommentRefs.filter(
-              commentRef => taskId !== readField('id', commentRef),
-            );
+        cache.modify({
+          id: identity,
+          fields: {
+            todos(existingCommentRefs, { readField }) {
+              return existingCommentRefs.filter(
+                (commentRef: Reference) =>
+                  taskId !== readField('id', commentRef),
+              );
+            },
           },
-        },
-      });
+        });
+      }
     },
     onError: () => {
       currentUserRefetch();
@@ -101,8 +110,12 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
   });
 
   const onCreateTodo = async (todo: ICreateTodoInput) => {
-    const optimisticObject = { ...todo };
-    optimisticObject.id = 'randomString';
+    type OptimisticResponse = Omit<ITodo, 'updatedAt' | 'createdAt'>;
+
+    const optimisticObject: OptimisticResponse = {
+      id: 'randomString',
+      ...todo,
+    };
 
     await createTodo({
       variables: {
@@ -116,12 +129,12 @@ export default function UserContextProvider({ children }: Props): JSX.Element {
 
   const onUpdateTodo = async (todoUpdate: IUpdateTodoInput) => {
     const updatedItem = {
-      ...user.todos.find(todo => todo.id === todoUpdate.id),
+      ...user?.todos?.find(todo => todo.id === todoUpdate.id),
     };
     if (todoUpdate.task) {
       updatedItem.task = todoUpdate.task;
     } else {
-      updatedItem.completed = todoUpdate.completed;
+      updatedItem.completed = todoUpdate.completed as boolean;
     }
     await updateTodo({
       variables: {
