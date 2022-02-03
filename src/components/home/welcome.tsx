@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
-import { Avatar } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import { WelcomeScreenTypes } from 'src/components/home/utils/types';
 const Welcome = ({ colors, user }: WelcomeScreenTypes) => {
   const styles = StyleSheet.create({
@@ -20,15 +20,11 @@ const Welcome = ({ colors, user }: WelcomeScreenTypes) => {
 
   return (
     <>
-      <Avatar
+      <Icon
         size={100}
-        rounded
-        icon={{
-          name: 'user',
-          type: 'font-awesome',
-          color: colors.background2,
-        }}
-        containerStyle={styles.iconContainer}
+        name="clipboard-list"
+        type="font-awesome-5"
+        color="white"
       />
       <Text style={styles.headingOne}>
         Welcome {user.firstName + ' ' + user.lastName}

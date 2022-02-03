@@ -17,8 +17,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Register'>;
 
 const Register = () => {
   const navigation = useNavigation<Props['navigation']>();
-  const [email, setEmail] = useState('zarif_al96@outlook.com');
-  const [password, setPassword] = useState('As123456789');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const { createFirebaseUser, error, setError } = useContext(AuthContext);
   const { colors } = useContext(ThemeContext);
 
