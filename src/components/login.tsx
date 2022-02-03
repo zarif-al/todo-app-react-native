@@ -18,8 +18,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 const Login = () => {
   const { colors } = useContext(ThemeContext);
   const navigation = useNavigation<Props['navigation']>();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('zarif_al96@outlook.com');
+  const [password, setPassword] = useState('As123456789');
   const { signIn, error, setError } = useContext(AuthContext);
 
   const styles = StyleSheet.create({
