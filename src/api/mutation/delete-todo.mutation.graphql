@@ -1,9 +1,5 @@
 mutation DeleteTodo($input: DeleteTodoInput!) {
   deleteTodo(input: $input) {
-    todos {
-      id
-      task
-      completed
-    }
+    id
   }
 }
