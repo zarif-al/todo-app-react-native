@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Overlay, Icon, Divider } from 'react-native-elements';
-import { DeleteModalComponentTypes } from 'src/components/home/utils/types';
+import { ModalComponentTypes } from 'src/components/home/utils/types';
 import { ButtonStyled } from 'src/components/_root';
 
-const HelpModal = ({ visible, setVisible }: DeleteModalComponentTypes) => {
+const HelpModal = ({ visible, setVisible }: ModalComponentTypes) => {
   const styles = StyleSheet.create({
     modalStyle: {
       borderRadius: 10,

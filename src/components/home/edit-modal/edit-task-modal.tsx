@@ -50,6 +50,7 @@ const EditTaskModal = ({
                 task: input,
               });
               setVisible(false);
+              setInput('');
             }
           }}
         />
