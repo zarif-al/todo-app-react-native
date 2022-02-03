@@ -24,7 +24,6 @@ export interface ICreateUserInput {
   fireId: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
-  userName: Scalars['String'];
 }
 
 export interface IDeleteTodoInput {
@@ -33,10 +32,10 @@ export interface IDeleteTodoInput {
 
 export interface IMutation {
   __typename?: 'Mutation';
-  createTodo: IUser;
+  createTodo: ITodo;
   createUser: IUser;
-  deleteTodo: IUser;
-  updateTodo: IUser;
+  deleteTodo: ITodo;
+  updateTodo: ITodo;
 }
 
 
@@ -87,5 +86,4 @@ export interface IUser {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   todos?: Maybe<Array<ITodo>>;
-  userName: Scalars['String'];
 }
