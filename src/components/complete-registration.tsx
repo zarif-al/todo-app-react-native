@@ -11,9 +11,8 @@ import {
 import Circles from 'src/components/_root/circles';
 
 const CompleteRegistration = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [userName, setUserName] = useState('');
+  const [firstName, setFirstName] = useState('Abdullah');
+  const [lastName, setLastName] = useState('Al Zarif');
   const { onCreateUser, apiError, apiLoading, error, setError } =
     useContext(AuthContext);
   const { colors } = useContext(ThemeContext);
@@ -71,21 +70,14 @@ const CompleteRegistration = () => {
           autoComplete="name"
           error={error ? true : apiError ? true : false}
         />
-        <TextInputStyled
-          setValue={setUserName}
-          value={userName}
-          placeholder="Username"
-          autoComplete="username"
-          error={error ? true : apiError ? true : false}
-        />
         <Text style={styles.errorText}>{apiError}</Text>
       </View>
       <View style={styles.completeBtn}>
         <ButtonStyled
           title="Complete Registration!"
           onPress={() => {
-            if (firstName && lastName && userName) {
-              onCreateUser({ firstName, lastName, userName });
+            if (firstName && lastName) {
+              onCreateUser({ firstName, lastName });
             } else {
               setError('Please fill all the fields');
             }
