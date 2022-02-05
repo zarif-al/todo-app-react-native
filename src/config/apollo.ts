@@ -1,25 +1,8 @@
 import { HttpLink, ApolloClient, InMemoryCache } from '@apollo/client';
-import Config from 'react-native-config';
 import auth from '@react-native-firebase/auth';
 import { setContext } from '@apollo/client/link/context';
 
-const DEVICE = Config.DEVICE;
-const MODE = Config.MODE;
-let GRAPHQL_URI;
-
-if (DEVICE === 'emulator') {
-  if (MODE === 'dev') {
-    GRAPHQL_URI = Config.API_URL + '/graphql';
-  } else {
-    GRAPHQL_URI = 'https://zarif-todo-app-api.herokuapp.com/graphql';
-  }
-} else {
-  if (MODE === 'dev') {
-    GRAPHQL_URI = Config.API_URL_PHYSICAL + '/graphql';
-  } else {
-    GRAPHQL_URI = 'https://zarif-todo-app-api.herokuapp.com/graphql';
-  }
-}
+const GRAPHQL_URI = 'https://zarif-todo-app-api.herokuapp.com/graphql';
 
 const httpLink = new HttpLink({ uri: GRAPHQL_URI });
 

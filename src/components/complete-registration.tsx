@@ -11,8 +11,8 @@ import {
 import Circles from 'src/components/_root/circles';
 
 const CompleteRegistration = () => {
-  const [firstName, setFirstName] = useState('Abdullah');
-  const [lastName, setLastName] = useState('Al Zarif');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const { onCreateUser, apiError, apiLoading, error, setError } =
     useContext(AuthContext);
   const { colors } = useContext(ThemeContext);
