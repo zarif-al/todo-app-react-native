@@ -40,7 +40,7 @@ const HomeScreenComponent = () => {
       fontWeight: 'bold',
     },
     firstContainer: {
-      flex: 0.4,
+      flex: 0.45,
       justifyContent: 'flex-end',
       alignItems: 'center',
       backgroundColor: colors.background2,
@@ -49,7 +49,7 @@ const HomeScreenComponent = () => {
       flexDirection: 'column',
       alignItems: 'center',
       backgroundColor: colors.background,
-      flex: 0.6,
+      flex: 0.55,
       padding: 24,
     },
     absoluteIconsContainer: {

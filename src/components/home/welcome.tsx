@@ -15,7 +15,6 @@ const Welcome = ({ colors, user }: WelcomeScreenTypes) => {
       borderWidth: 1,
       borderColor: colors.primary,
       backgroundColor: colors.background,
-      zIndex: 10,
     },
   });
 
