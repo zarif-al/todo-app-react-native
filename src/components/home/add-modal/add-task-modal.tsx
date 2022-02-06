@@ -38,7 +38,7 @@ const AddTaskModal = ({ setVisible, input, setInput, onCreateTodo }: Props) => {
           onPress={() => {
             if (input.length > 0) {
               onCreateTodo({
-                task: input,
+                task: input.trim(),
                 completed: false,
               });
               setInput('');
