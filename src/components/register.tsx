@@ -86,7 +86,7 @@ const Register = () => {
           title="Sign Up !"
           onPress={() => {
             if (email && password) {
-              createFirebaseUser(email, password);
+              createFirebaseUser(email.trim(), password.trim());
             } else {
               setError('Please fill all the fields');
             }

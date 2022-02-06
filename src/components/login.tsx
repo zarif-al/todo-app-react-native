@@ -74,7 +74,7 @@ const Login = () => {
           title="Login"
           onPress={() => {
             if (email && password) {
-              signIn(email, password);
+              signIn(email.trim(), password.trim());
             } else {
               setError('Please fill all the fields');
             }

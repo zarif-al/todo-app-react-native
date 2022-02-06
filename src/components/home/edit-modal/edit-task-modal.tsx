@@ -47,7 +47,7 @@ const EditTaskModal = ({
             if (input.length > 0 && taskId !== null) {
               onUpdateTodo({
                 id: taskId,
-                task: input,
+                task: input.trim(),
               });
               setVisible(false);
               setInput('');

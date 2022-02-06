@@ -77,7 +77,10 @@ const CompleteRegistration = () => {
           title="Complete Registration!"
           onPress={() => {
             if (firstName && lastName) {
-              onCreateUser({ firstName, lastName });
+              onCreateUser({
+                firstName: firstName.trim(),
+                lastName: lastName.trim(),
+              });
             } else {
               setError('Please fill all the fields');
             }
